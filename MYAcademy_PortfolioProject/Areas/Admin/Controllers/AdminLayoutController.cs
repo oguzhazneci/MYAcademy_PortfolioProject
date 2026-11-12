@@ -2,9 +2,9 @@
 
 namespace MYAcademy_PortfolioProject.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class AdminLayoutController : Controller
     {
-        [Area("Admin")]
         public IActionResult Index()
         {
             return View();
