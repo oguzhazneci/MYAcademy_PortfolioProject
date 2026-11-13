@@ -15,13 +15,25 @@
         <div class="menu-section-label">Menü</div>
         <ul class="sidebar-nav">
             <li>
-                <a href="#" class="sidebar-link">
+                <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="sidebar-link">
                     <i class="bi bi-grid-1x2"></i>
-                    <span>Dashboard</span>
+                    <span>Gösterge Paneli</span>
                 </a>
             </li>
             <li>
-                <a href="#" class="sidebar-link">
+                <a asp-area="Admin" asp-controller="HeroSection" asp-action="UpdateHeroSection" class="sidebar-link">
+                    <i class="bi bi-house"></i>
+                    <span>Karşılama Alanı</span>
+                </a>
+            </li>
+            <li>
+                <a asp-area="Admin" asp-controller="HeroTitle" asp-action="HeroTitleList" class="sidebar-link">
+                    <i class="bi bi-cursor-text"></i>
+                    <span>Typewriter Yazıları</span>
+                </a>
+            </li>
+            <li>
+                <a asp-area="Admin" asp-controller="About" asp-action="UpdateAbout" class="sidebar-link">
                     <i class="bi bi-person"></i>
                     <span>Hakkımda</span>
                 </a>
@@ -33,14 +45,13 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="sidebar-link active">
+                <a asp-area="Admin" asp-controller="Experience" asp-action="ExperienceList" class="sidebar-link">
                     <i class="bi bi-journal-bookmark-fill"></i>
                     <span>Deneyimlerim</span>
-                    <span class="badge-count">4</span>
                 </a>
             </li>
             <li>
-                <a href="#" class="sidebar-link">
+                <a asp-area="Admin" asp-controller="Project" asp-action="ProjectList" class="sidebar-link">
                     <i class="bi bi-code-slash"></i>
                     <span>Projelerim</span>
                 </a>
@@ -52,13 +63,13 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="sidebar-link">
+                <a asp-area="Admin" asp-controller="Contact" asp-action="ContactList" class="sidebar-link">
                     <i class="bi bi-envelope"></i>
                     <span>İletişim</span>
                 </a>
             </li>
             <li>
-                <a href="#" class="sidebar-link">
+                <a asp-area="Admin" asp-controller="Message" asp-action="MessageList" class="sidebar-link">
                     <i class="bi bi-inbox"></i>
                     <span>Gelen Kutusu</span>
                 </a>
@@ -74,7 +85,7 @@
         <div class="menu-section-label mt-4">Sistem & Bağlantı</div>
         <ul class="sidebar-nav">
             <li>
-                <a href="#" class="sidebar-link">
+                <a asp-area="" asp-controller="Default" asp-action="Index" target="_blank" class="sidebar-link">
                     <i class="bi bi-box-arrow-up-right"></i>
                     <span>Siteyi Önizle</span>
                 </a>

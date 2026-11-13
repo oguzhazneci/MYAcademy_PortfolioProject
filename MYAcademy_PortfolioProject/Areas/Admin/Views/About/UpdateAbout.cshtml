@@ -1,0 +1,145 @@
+﻿@model About
+
+@{
+    ViewData["Title"] = "Hakkımda Yönetimi";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<main class="page-content-area">
+
+    <div class="content-header-row">
+        <div>
+            <h1 class="page-title">Hakkımda Yönetimi</h1>
+            <p class="page-subtitle">Sitedeki "Hakkımda" bölümünün içeriğini ve öne çıkan bilgileri buradan düzenleyebilirsiniz.</p>
+        </div>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i>@TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Kapat"></button>
+        </div>
+    }
+
+    <form method="post">
+        <input type="hidden" asp-for="AboutId" />
+
+        @* Form kaydedilemediyse, hangi alanlarda sorun olduğunu en üstte topluca gösterir.
+           if kontrolü olmazsa, hata yokken bile boş kırmızı bir kutu görünür. *@
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div asp-validation-summary="All" class="alert alert-danger" role="alert"></div>
+        }
+
+        <div class="row g-4">
+
+            <!-- Sol sütun: kimlik ve metin -->
+            <div class="col-xl-8">
+
+                <div class="data-table-card p-4 mb-4">
+                    <h2 class="h6 fw-bold mb-3">Kimlik Bilgileri</h2>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="FullName" class="form-label">Ad Soyad</label>
+                            <input asp-for="FullName" class="form-control" />
+                            <span asp-validation-for="FullName" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Title" class="form-label">Unvan</label>
+                            <input asp-for="Title" class="form-control" placeholder="Örn: Yazılım Mühendisi" />
+                            <span asp-validation-for="Title" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Location" class="form-label">Konum</label>
+                            <input asp-for="Location" class="form-control" placeholder="Örn: Ankara" />
+                            <span asp-validation-for="Location" class="text-danger small"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="data-table-card p-4 mb-4">
+                    <h2 class="h6 fw-bold mb-3">Tanıtım</h2>
+                    <div class="mb-3">
+                        <label asp-for="Heading" class="form-label">Bölüm Başlığı</label>
+                        <input asp-for="Heading" class="form-control" />
+                        <span asp-validation-for="Heading" class="text-danger small"></span>
+                    </div>
+                    <div class="mb-1">
+                        <label asp-for="Description" class="form-label">Tanıtım Metni</label>
+                        <textarea asp-for="Description" class="form-control" rows="9"></textarea>
+                        <span asp-validation-for="Description" class="text-danger small"></span>
+                    </div>
+                    <div class="form-text">Yeni paragraf başlatmak için paragraflar arasında bir boş satır bırakın.</div>
+                </div>
+
+                <div class="data-table-card p-4">
+                    <h2 class="h6 fw-bold mb-1">Öne Çıkan Bilgiler</h2>
+                    <p class="form-text mt-0 mb-3">İlk iki bilgi, ana sayfadaki fotoğrafın yanında rozet olarak da görünür.</p>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="StatValue1" class="form-label">1. Değer</label>
+                            <input asp-for="StatValue1" class="form-control" placeholder="Örn: 3,5+" />
+                            <span asp-validation-for="StatValue1" class="text-danger small"></span>
+                            <label asp-for="StatLabel1" class="form-label mt-2">1. Etiket</label>
+                            <input asp-for="StatLabel1" class="form-control" placeholder="Örn: Yıl Deneyim" />
+                            <span asp-validation-for="StatLabel1" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="StatValue2" class="form-label">2. Değer</label>
+                            <input asp-for="StatValue2" class="form-control" />
+                            <span asp-validation-for="StatValue2" class="text-danger small"></span>
+                            <label asp-for="StatLabel2" class="form-label mt-2">2. Etiket</label>
+                            <input asp-for="StatLabel2" class="form-control" />
+                            <span asp-validation-for="StatLabel2" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="StatValue3" class="form-label">3. Değer</label>
+                            <input asp-for="StatValue3" class="form-control" />
+                            <span asp-validation-for="StatValue3" class="text-danger small"></span>
+                            <label asp-for="StatLabel3" class="form-label mt-2">3. Etiket</label>
+                            <input asp-for="StatLabel3" class="form-control" />
+                            <span asp-validation-for="StatLabel3" class="text-danger small"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sağ sütun: medya ve kaydet -->
+            <div class="col-xl-4">
+                <div class="data-table-card p-4">
+                    <h2 class="h6 fw-bold mb-3">Fotoğraf ve Özgeçmiş</h2>
+
+                    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                    {
+                        <img src="@Model.ImageUrl" alt="Hakkımda fotoğrafı" class="img-fluid rounded-3 border mb-3" />
+                    }
+                    else
+                    {
+                        <div class="border rounded-3 p-4 mb-3 text-center text-muted small">Henüz fotoğraf eklenmedi.</div>
+                    }
+
+                    <div class="mb-3">
+                        <label asp-for="ImageUrl" class="form-label">Fotoğraf Adresi (URL)</label>
+                        <input asp-for="ImageUrl" class="form-control" />
+                        <span asp-validation-for="ImageUrl" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="CvUrl" class="form-label">Özgeçmiş (PDF) Adresi <span class="text-muted">(isteğe bağlı)</span></label>
+                        <input asp-for="CvUrl" class="form-control" />
+                        <span asp-validation-for="CvUrl" class="text-danger small"></span>
+                    </div>
+
+                    <button type="submit" class="btn-pastel-primary w-100 justify-content-center">
+                        <i class="bi bi-save"></i>
+                        <span>Kaydet</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+</main>

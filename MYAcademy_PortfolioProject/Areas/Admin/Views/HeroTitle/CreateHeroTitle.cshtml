@@ -1,0 +1,19 @@
+﻿@model HeroTitle
+
+@{
+    ViewData["Title"] = "Yeni Typewriter Yazısı";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<main class="page-content-area">
+    <div class="content-header-row">
+        <div>
+            <h1 class="page-title">Yeni Typewriter Yazısı</h1>
+            <p class="page-subtitle">Ana sayfada başlığın altında sırayla yazılıp silinen ifadelere yenisini ekleyin.</p>
+        </div>
+    </div>
+
+    <div class="data-table-card p-4" style="max-width: 640px;">
+        <partial name="_HeroTitleForm" model="Model" />
+    </div>
+</main>

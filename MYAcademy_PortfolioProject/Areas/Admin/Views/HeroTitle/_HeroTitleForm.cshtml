@@ -1,0 +1,32 @@
+﻿@model HeroTitle
+
+<form method="post">
+    <input type="hidden" asp-for="HeroTitleId" />
+
+    <div class="mb-3">
+        <label asp-for="Title" class="form-label">Yazı</label>
+        <input asp-for="Title" class="form-control" placeholder="Örn: .NET Geliştiricisi" />
+        <span asp-validation-for="Title" class="text-danger small"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Order" class="form-label">Sıra</label>
+        <input asp-for="Order" class="form-control" />
+        <span asp-validation-for="Order" class="text-danger small"></span>
+    </div>
+
+    <div class="form-check form-switch mb-4">
+        <input asp-for="IsActive" class="form-check-input" role="switch" />
+        <label asp-for="IsActive" class="form-check-label">Aktif (sitede gösterilsin)</label>
+    </div>
+
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn-pastel-primary">
+            <i class="bi bi-save"></i>
+            <span>Kaydet</span>
+        </button>
+        <a asp-action="HeroTitleList" class="btn-pastel-secondary text-decoration-none">
+            <span>Vazgeç</span>
+        </a>
+    </div>
+</form>

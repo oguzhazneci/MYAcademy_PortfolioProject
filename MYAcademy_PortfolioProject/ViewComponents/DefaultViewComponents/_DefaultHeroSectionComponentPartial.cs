@@ -15,10 +15,18 @@ namespace MYAcademy_PortfolioProject.ViewComponents.DefaultViewComponents
         public IViewComponentResult Invoke()
         {
             var value = _context.HeroSections.FirstOrDefault();
-            ViewBag.greeting = value.Greeting;
-            ViewBag.title = value.Title;
-            ViewBag.description = value.Description;
-            ViewBag.mainImageUrl = value.MainImageUrl;
+            
+            if (value != null)
+            {
+                ViewBag.greeting = value.Greeting;
+                ViewBag.title = value.Title;
+                ViewBag.description = value.Description;
+                ViewBag.mainImageUrl = value.MainImageUrl;
+            }
+
+            ViewBag.heroTitles = _context.HeroTitles.Where(x => x.IsActive).OrderBy(x => x.Order).Select(x => x.Title).ToList();
+            ViewBag.about = _context.Abouts.FirstOrDefault();
+
             return View();
         }
     }
