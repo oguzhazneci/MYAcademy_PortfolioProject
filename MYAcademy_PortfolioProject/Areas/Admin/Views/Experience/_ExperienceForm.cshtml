@@ -1,0 +1,67 @@
+﻿@model Experience
+
+<form method="post">
+    <input type="hidden" asp-for="ExperienceId" />
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="Title" class="form-label">Pozisyon</label>
+            <input asp-for="Title" class="form-control" placeholder="Örn: Yazılım Geliştirici" />
+            <span asp-validation-for="Title" class="text-danger small"></span>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label asp-for="CompanyName" class="form-label">Şirket</label>
+            <input asp-for="CompanyName" class="form-control" />
+            <span asp-validation-for="CompanyName" class="text-danger small"></span>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CategoryName" class="form-label">Çalışma Türü</label>
+        @* list="workTypes": aşağıdaki datalist'ten öneri sunar ama serbest yazmaya da izin verir. *@
+        <input asp-for="CategoryName" class="form-control" list="workTypes" placeholder="Seçin veya yazın" />
+        <datalist id="workTypes">
+            <option value="Tam Zamanlı"></option>
+            <option value="Yarı Zamanlı"></option>
+            <option value="Staj"></option>
+            <option value="Serbest (Freelance)"></option>
+            <option value="Gönüllü"></option>
+        </datalist>
+        <span asp-validation-for="CategoryName" class="text-danger small"></span>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="StartDate" class="form-label">Başlangıç Tarihi</label>
+            <input asp-for="StartDate" class="form-control" />
+            <span asp-validation-for="StartDate" class="text-danger small"></span>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label asp-for="EndDate" class="form-label">Bitiş Tarihi</label>
+            <input asp-for="EndDate" class="form-control" />
+            <div class="form-text">Hâlâ devam ediyorsa boş bırakın.</div>
+            <span asp-validation-for="EndDate" class="text-danger small"></span>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label">Açıklama</label>
+        <textarea asp-for="Description" class="form-control" rows="5"></textarea>
+        <span asp-validation-for="Description" class="text-danger small"></span>
+    </div>
+
+    <div class="form-check form-switch mb-4">
+        <input asp-for="IsActive" class="form-check-input" role="switch" />
+        <label asp-for="IsActive" class="form-check-label">Aktif (sitede gösterilsin)</label>
+    </div>
+
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn-pastel-primary">
+            <i class="bi bi-save"></i>
+            <span>Kaydet</span>
+        </button>
+        <a asp-action="ExperienceList" class="btn-pastel-secondary text-decoration-none">
+            <span>Vazgeç</span>
+        </a>
+    </div>
+</form>

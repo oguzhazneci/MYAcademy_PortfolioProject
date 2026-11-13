@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿    using Microsoft.AspNetCore.Mvc;
 using MYAcademy_PortfolioProject.Context;
 
 namespace MYAcademy_PortfolioProject.ViewComponents.DefaultViewComponents
@@ -14,7 +14,18 @@ namespace MYAcademy_PortfolioProject.ViewComponents.DefaultViewComponents
 
         public IViewComponentResult Invoke()
         {
-            var values = _context.Experiences.ToList();
+            // Sadece aktif deneyimler, en güncelden en eskiye.
+            var values = _context.Experiences
+                .Where(x => x.IsActive)
+                .OrderByDescending(x => x.StartDate)
+                .ToList();
+
+            // Gösterilecek deneyim yoksa bölümü hiç basma (boş bir zaman çizelgesi göstermektense).
+            if (!values.Any())
+            {
+                return Content(string.Empty);
+            }
+
             return View(values);
         }
     }

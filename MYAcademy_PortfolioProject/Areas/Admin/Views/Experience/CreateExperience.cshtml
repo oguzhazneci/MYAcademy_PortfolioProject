@@ -1,0 +1,19 @@
+﻿@model Experience
+
+@{
+    ViewData["Title"] = "Yeni Deneyim";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<main class="page-content-area">
+    <div class="content-header-row">
+        <div>
+            <h1 class="page-title">Yeni Deneyim</h1>
+            <p class="page-subtitle">Kariyer zaman çizelgenize yeni bir iş deneyimi ekleyin.</p>
+        </div>
+    </div>
+
+    <div class="data-table-card p-4" style="max-width: 820px;">
+        <partial name="_ExperienceForm" model="Model" />
+    </div>
+</main>
