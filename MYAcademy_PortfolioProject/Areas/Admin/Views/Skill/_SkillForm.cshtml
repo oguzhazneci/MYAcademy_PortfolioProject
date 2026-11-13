@@ -1,0 +1,46 @@
+﻿@model Skill
+
+<form method="post">
+    <input type="hidden" asp-for="SkillId" />
+
+    <div class="mb-3">
+        <label asp-for="Title" class="form-label">Kategori Adı</label>
+        <input asp-for="Title" class="form-control" placeholder="Örn: Backend Geliştirme" />
+        <span asp-validation-for="Title" class="text-danger small"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label">Açıklama</label>
+        <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+        <span asp-validation-for="Description" class="text-danger small"></span>
+    </div>
+
+    <div class="mb-4">
+        <label asp-for="IconUrl" class="form-label">İkon (Bootstrap Icons sınıfı)</label>
+        <div class="input-group">
+            <span class="input-group-text fs-5"><i id="iconPreview" class="bi @Model.IconUrl"></i></span>
+            <input asp-for="IconUrl" class="form-control" placeholder="Örn: bi-server" />
+        </div>
+        <div class="form-text">
+            İkon adlarını <a href="https://icons.getbootstrap.com/" target="_blank" rel="noopener">icons.getbootstrap.com</a> adresinden bulabilirsiniz. Başına "bi-" ekleyerek yazın.
+        </div>
+        <span asp-validation-for="IconUrl" class="text-danger small"></span>
+    </div>
+
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn-pastel-primary">
+            <i class="bi bi-save"></i>
+            <span>Kaydet</span>
+        </button>
+        <a asp-action="SkillList" class="btn-pastel-secondary text-decoration-none">
+            <span>Vazgeç</span>
+        </a>
+    </div>
+</form>
+
+<script>
+    // İkon alanına yazdıkça soldaki önizleme anında güncellenir.
+    document.getElementById('IconUrl').addEventListener('input', function () {
+        document.getElementById('iconPreview').className = 'bi ' + this.value.trim();
+    });
+</script>

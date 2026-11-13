@@ -1,0 +1,19 @@
+﻿@model SkillItem
+
+@{
+    ViewData["Title"] = "Yeni Yetenek";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<main class="page-content-area">
+    <div class="content-header-row">
+        <div>
+            <h1 class="page-title">Yeni Yetenek</h1>
+            <p class="page-subtitle">Bir kategoriye yeni bir teknoloji ve seviyesini ekleyin.</p>
+        </div>
+    </div>
+
+    <div class="data-table-card p-4" style="max-width: 640px;">
+        <partial name="_SkillItemForm" model="Model" />
+    </div>
+</main>

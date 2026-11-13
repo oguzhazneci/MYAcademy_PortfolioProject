@@ -1,0 +1,19 @@
+﻿@model Skill
+
+@{
+    ViewData["Title"] = "Yetenek Kategorisini Güncelle";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<main class="page-content-area">
+    <div class="content-header-row">
+        <div>
+            <h1 class="page-title">Yetenek Kategorisini Güncelle</h1>
+            <p class="page-subtitle">Kartın başlığını, açıklamasını veya ikonunu değiştirin.</p>
+        </div>
+    </div>
+
+    <div class="data-table-card p-4" style="max-width: 640px;">
+        <partial name="_SkillForm" model="Model" />
+    </div>
+</main>

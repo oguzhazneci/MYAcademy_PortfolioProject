@@ -1,0 +1,47 @@
+﻿@model SkillItem
+
+<form method="post">
+    <input type="hidden" asp-for="SkillItemId" />
+
+    <div class="mb-3">
+        <label asp-for="SkillItemTitle" class="form-label">Yetenek Adı</label>
+        <input asp-for="SkillItemTitle" class="form-control" placeholder="Örn: ASP.NET Core MVC" />
+        <span asp-validation-for="SkillItemTitle" class="text-danger small"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="SkillId" class="form-label">Kategori</label>
+        @* asp-items seçenekleri controller'daki SelectList'ten üretir; elle yazdığımız ilk seçenek "boş" seçimdir. *@
+        <select asp-for="SkillId" asp-items="ViewBag.Skills" class="form-select">
+            <option value="0">-- Kategori seçin --</option>
+        </select>
+        <span asp-validation-for="SkillId" class="text-danger small"></span>
+    </div>
+
+    <div class="mb-4">
+        <label asp-for="Level" class="form-label d-flex justify-content-between">
+            <span>Seviye</span>
+            <span class="fw-semibold"><span id="levelValue">@Model.Level</span> / 100</span>
+        </label>
+        @* type="range" ile asp-for'un ürettiği varsayılan "number" tipini eziyoruz. *@
+        <input asp-for="Level" type="range" class="form-range" min="0" max="100" step="5" />
+        <span asp-validation-for="Level" class="text-danger small"></span>
+    </div>
+
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn-pastel-primary">
+            <i class="bi bi-save"></i>
+            <span>Kaydet</span>
+        </button>
+        <a asp-action="SkillItemList" class="btn-pastel-secondary text-decoration-none">
+            <span>Vazgeç</span>
+        </a>
+    </div>
+</form>
+
+<script>
+    // Kaydırıcı hareket ettikçe yanındaki sayı güncellenir.
+    document.getElementById('Level').addEventListener('input', function () {
+        document.getElementById('levelValue').textContent = this.value;
+    });
+</script>

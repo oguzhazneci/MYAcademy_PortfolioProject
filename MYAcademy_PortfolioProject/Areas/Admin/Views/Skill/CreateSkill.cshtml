@@ -1,0 +1,19 @@
+﻿@model Skill
+
+@{
+    ViewData["Title"] = "Yeni Yetenek Kategorisi";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<main class="page-content-area">
+    <div class="content-header-row">
+        <div>
+            <h1 class="page-title">Yeni Yetenek Kategorisi</h1>
+            <p class="page-subtitle">Sitedeki Yetenekler bölümüne yeni bir kart ekleyin.</p>
+        </div>
+    </div>
+
+    <div class="data-table-card p-4" style="max-width: 640px;">
+        <partial name="_SkillForm" model="Model" />
+    </div>
+</main>
