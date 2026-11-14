@@ -96,7 +96,6 @@
                                         </button>
                                     </form>
 
-                                    @* Geçici onay: Aşama 9'da SweetAlert2 ile değiştirilecek. *@
                                     <form asp-action="DeleteEducation" asp-route-id="@item.EducationId" method="post" class="d-inline"
                                           onsubmit="return confirm('Bu eğitim bilgisini silmek istediğinize emin misiniz?');">
                                         <button type="submit" class="btn-action-icon btn-delete" title="Sil">

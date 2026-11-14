@@ -23,7 +23,7 @@
     }
 
     <div class="data-table-card p-4">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             @* Id gizli alanda taşınır; böylece POST'ta hangi kaydın güncelleneceği bilinir. *@
             <input type="hidden" asp-for="HeroSectionId" />
 
@@ -50,9 +50,10 @@
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="MainImageUrl" class="form-label">Görsel Adresi (URL)</label>
-                        <input asp-for="MainImageUrl" class="form-control" />
-                        <span asp-validation-for="MainImageUrl" class="text-danger small"></span>
+                        <label for="imageFile" class="form-label">Görsel</label>
+                        <input type="file" id="imageFile" name="imageFile" class="form-control" accept=".jpg,.jpeg,.png,.webp" />
+                        <div class="form-text">JPG, PNG veya WEBP · en fazla 2 MB. Değiştirmek istemiyorsanız boş bırakın.</div>
+                        @Html.ValidationMessage("imageFile", new { @class = "text-danger small" })
                     </div>
 
                     <button type="submit" class="btn-pastel-primary">
@@ -63,13 +64,11 @@
 
                 <div class="col-lg-4">
                     <label class="form-label">Mevcut Görsel</label>
-                    @if (!string.IsNullOrEmpty(Model.MainImageUrl))
+                    <img id="imagePreview" src="@Model.MainImageUrl" alt="Hero görseli"
+                         class="img-fluid rounded-3 border @(string.IsNullOrEmpty(Model.MainImageUrl) ? "d-none" : "")" />
+                    @if (string.IsNullOrEmpty(Model.MainImageUrl))
                     {
-                        <img src="@Model.MainImageUrl" alt="Hero görseli" class="img-fluid rounded-3 border" />
-                    }
-                    else
-                    {
-                        <div class="border rounded-3 p-4 text-center text-muted small">Henüz görsel eklenmedi.</div>
+                        <div id="imagePlaceholder" class="border rounded-3 p-4 text-center text-muted small">Henüz görsel eklenmedi.</div>
                     }
                 </div>
             </div>
@@ -77,3 +76,15 @@
     </div>
 
 </main>
+<script>
+    // Dosya seçilir seçilmez, sunucuya göndermeden tarayıcıda önizleme gösterir.
+    document.getElementById('imageFile').addEventListener('change', function () {
+        const preview = document.getElementById('imagePreview');
+        const placeholder = document.getElementById('imagePlaceholder');
+        if (this.files && this.files[0]) {
+            preview.src = URL.createObjectURL(this.files[0]);
+            preview.classList.remove('d-none');
+            if (placeholder) placeholder.classList.add('d-none');
+        }
+    });
+</script>

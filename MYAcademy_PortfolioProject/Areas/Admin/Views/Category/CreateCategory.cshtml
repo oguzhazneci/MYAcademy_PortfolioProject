@@ -1,0 +1,19 @@
+﻿@model Category
+
+@{
+    ViewData["Title"] = "Yeni Proje Kategorisi";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<main class="page-content-area">
+    <div class="content-header-row">
+        <div>
+            <h1 class="page-title">Yeni Proje Kategorisi</h1>
+            <p class="page-subtitle">Projelerinizi gruplamak için yeni bir kategori ekleyin.</p>
+        </div>
+    </div>
+
+    <div class="data-table-card p-4" style="max-width: 640px;">
+        <partial name="_CategoryForm" model="Model" />
+    </div>
+</main>

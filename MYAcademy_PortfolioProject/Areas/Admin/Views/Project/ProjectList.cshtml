@@ -1,25 +1,128 @@
 ﻿@model List<Project>
 
 @{
-    ViewData["Title"] = "ProjectList";
+    ViewData["Title"] = "Projelerim";
     Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+    string sort = ViewBag.Sort;
 }
 
-<div class="container">
-    <br />
-    <table class="table table-bordered">
-        <tr>
-            <th>#</th>
-            <th>Proje Adı</th>
-            <th>Kategori</th>
-        </tr>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.ProjectId</td>
-                <td>@item.ProjectTitle</td>
-                <td>@item.Category.CategoryName</td>
-            </tr>
-        }
-    </table>
-</div>
+<main class="page-content-area">
+
+    <div class="content-header-row">
+        <div>
+            <h1 class="page-title">Projelerim</h1>
+            <p class="page-subtitle">Pasif projeler burada yönetilebilir ancak sitede listelenmez.</p>
+        </div>
+        <div class="header-actions">
+            <a asp-controller="Category" asp-action="CategoryList" class="btn-pastel-secondary text-decoration-none">
+                <i class="bi bi-tags"></i>
+                <span>Kategoriler</span>
+            </a>
+            <a asp-action="CreateProject" class="btn-pastel-primary text-decoration-none">
+                <i class="bi bi-plus-circle-fill"></i>
+                <span>Yeni Proje Ekle</span>
+            </a>
+        </div>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i>@TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Kapat"></button>
+        </div>
+    }
+
+    @* method="get": seçimler adres çubuğuna eklenir (?categoryId=2&sort=title). Sayfa yenilense de, link paylaşılsa da filtre korunur. *@
+    <form method="get" asp-action="ProjectList" class="d-flex flex-wrap align-items-center gap-2 mb-3">
+        <select name="categoryId" asp-items="ViewBag.Categories" class="form-select" style="max-width: 240px;" onchange="this.form.submit()">
+            <option value="">Tüm kategoriler</option>
+        </select>
+        <select name="sort" class="form-select" style="max-width: 200px;" onchange="this.form.submit()">
+            <option value="newest" selected="@(sort == "newest")">En yeni</option>
+            <option value="oldest" selected="@(sort == "oldest")">En eski</option>
+            <option value="title" selected="@(sort == "title")">Ada göre (A-Z)</option>
+        </select>
+        <a asp-action="ProjectList" class="btn btn-link text-muted text-decoration-none">Filtreyi temizle</a>
+    </form>
+
+    <div class="data-table-card">
+        <div class="table-responsive-wrapper">
+            <table class="custom-admin-table">
+                <thead>
+                    <tr>
+                        <th style="width: 88px;">Görsel</th>
+                        <th>Proje</th>
+                        <th>Kategori</th>
+                        <th>Eklenme</th>
+                        <th>Durum</th>
+                        <th style="text-align: right;">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center text-muted py-4">Bu kriterlere uygun proje bulunamadı.</td>
+                        </tr>
+                    }
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @if (!string.IsNullOrEmpty(item.ImageUrl))
+                                {
+                                    <img src="@item.ImageUrl" alt="@item.ProjectTitle" class="rounded-2 border" style="width: 72px; height: 48px; object-fit: cover;" />
+                                }
+                                else
+                                {
+                                    <div class="rounded-2 border bg-light d-flex align-items-center justify-content-center text-muted" style="width: 72px; height: 48px;">
+                                        <i class="bi bi-image"></i>
+                                    </div>
+                                }
+                            </td>
+                            <td>
+                                <span class="fw-semibold d-block">@item.ProjectTitle</span>
+                                <small class="text-muted">@item.Technologies</small>
+                            </td>
+                            <td><span class="work-type-badge">@item.Category?.CategoryName</span></td>
+                            <td class="small text-muted">@item.CreatedDate.ToString("dd.MM.yyyy")</td>
+                            <td>
+                                @if (item.IsActive)
+                                {
+                                    <span class="status-pill status-active">Aktif</span>
+                                }
+                                else
+                                {
+                                    <span class="status-pill status-passive">Pasif</span>
+                                }
+                            </td>
+                            <td>
+                                <div class="row-actions-group justify-content-end">
+                                    <a asp-action="UpdateProject" asp-route-id="@item.ProjectId" class="btn-action-icon btn-edit" title="Güncelle">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+
+                                    <form asp-action="ToggleProjectStatus" asp-route-id="@item.ProjectId" method="post" class="d-inline">
+                                        <button type="submit" class="btn-action-icon btn-view" title="@(item.IsActive ? "Pasife al" : "Aktif et")">
+                                            <i class="bi @(item.IsActive ? "bi-eye-slash" : "bi-eye")"></i>
+                                        </button>
+                                    </form>
+
+                                    <form asp-action="DeleteProject" asp-route-id="@item.ProjectId" method="post" class="d-inline"
+                                          onsubmit="return confirm('Bu projeyi silmek istediğinize emin misiniz?');">
+                                        <button type="submit" class="btn-action-icon btn-delete" title="Sil">
+                                            <i class="bi bi-trash3"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</main>

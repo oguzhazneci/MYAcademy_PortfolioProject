@@ -1,4 +1,5 @@
 using MYAcademy_PortfolioProject.Context;
+using MYAcademy_PortfolioProject.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<PortfolioContext>();
+builder.Services.AddScoped<ImageUploadService>();
 
 var app = builder.Build();
 
@@ -18,6 +20,9 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+// MapStaticAssets sadece derleme anında wwwroot'ta olan dosyaları sunar.
+// Çalışma sırasında yüklenen görseller (uploads) için UseStaticFiles gerekir.
+app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();

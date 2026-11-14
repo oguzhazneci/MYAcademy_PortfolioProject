@@ -1,0 +1,22 @@
+﻿@model Category
+
+<form method="post">
+    <input type="hidden" asp-for="CategoryId" />
+
+    <div class="mb-4">
+        <label asp-for="CategoryName" class="form-label">Kategori Adı</label>
+        <input asp-for="CategoryName" class="form-control" placeholder="Örn: Web Uygulamaları" />
+        <div class="form-text">Sitedeki Projeler bölümünde filtre butonu olarak görünür.</div>
+        <span asp-validation-for="CategoryName" class="text-danger small"></span>
+    </div>
+
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn-pastel-primary">
+            <i class="bi bi-save"></i>
+            <span>Kaydet</span>
+        </button>
+        <a asp-action="CategoryList" class="btn-pastel-secondary text-decoration-none">
+            <span>Vazgeç</span>
+        </a>
+    </div>
+</form>

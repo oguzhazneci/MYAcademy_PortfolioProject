@@ -22,7 +22,7 @@
         </div>
     }
 
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         <input type="hidden" asp-for="AboutId" />
 
         @* Form kaydedilemediyse, hangi alanlarda sorun olduğunu en üstte topluca gösterir.
@@ -111,19 +111,18 @@
                 <div class="data-table-card p-4">
                     <h2 class="h6 fw-bold mb-3">Fotoğraf ve Özgeçmiş</h2>
 
-                    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                    <img id="imagePreview" src="@Model.ImageUrl" alt="Hakkımda fotoğrafı"
+                         class="img-fluid rounded-3 border mb-3 @(string.IsNullOrEmpty(Model.ImageUrl) ? "d-none" : "")" />
+                    @if (string.IsNullOrEmpty(Model.ImageUrl))
                     {
-                        <img src="@Model.ImageUrl" alt="Hakkımda fotoğrafı" class="img-fluid rounded-3 border mb-3" />
-                    }
-                    else
-                    {
-                        <div class="border rounded-3 p-4 mb-3 text-center text-muted small">Henüz fotoğraf eklenmedi.</div>
+                        <div id="imagePlaceholder" class="border rounded-3 p-4 mb-3 text-center text-muted small">Henüz fotoğraf eklenmedi.</div>
                     }
 
                     <div class="mb-3">
-                        <label asp-for="ImageUrl" class="form-label">Fotoğraf Adresi (URL)</label>
-                        <input asp-for="ImageUrl" class="form-control" />
-                        <span asp-validation-for="ImageUrl" class="text-danger small"></span>
+                        <label for="imageFile" class="form-label">Fotoğraf</label>
+                        <input type="file" id="imageFile" name="imageFile" class="form-control" accept=".jpg,.jpeg,.png,.webp" />
+                        <div class="form-text">JPG, PNG veya WEBP · en fazla 2 MB. Değiştirmek istemiyorsanız boş bırakın.</div>
+                        @Html.ValidationMessage("imageFile", new { @class = "text-danger small" })
                     </div>
 
                     <div class="mb-4">
@@ -143,3 +142,15 @@
     </form>
 
 </main>
+<script>
+    // Dosya seçilir seçilmez, sunucuya göndermeden tarayıcıda önizleme gösterir.
+    document.getElementById('imageFile').addEventListener('change', function () {
+        const preview = document.getElementById('imagePreview');
+        const placeholder = document.getElementById('imagePlaceholder');
+        if (this.files && this.files[0]) {
+            preview.src = URL.createObjectURL(this.files[0]);
+            preview.classList.remove('d-none');
+            if (placeholder) placeholder.classList.add('d-none');
+        }
+    });
+</script>
