@@ -1,0 +1,19 @@
+﻿@model Education
+
+@{
+    ViewData["Title"] = "Eğitim Bilgisini Güncelle";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<main class="page-content-area">
+    <div class="content-header-row">
+        <div>
+            <h1 class="page-title">Eğitim Bilgisini Güncelle</h1>
+            <p class="page-subtitle">Seçtiğiniz eğitim kaydının bilgilerini düzenleyin.</p>
+        </div>
+    </div>
+
+    <div class="data-table-card p-4" style="max-width: 820px;">
+        <partial name="_EducationForm" model="Model" />
+    </div>
+</main>

@@ -1,0 +1,19 @@
+﻿@model Education
+
+@{
+    ViewData["Title"] = "Yeni Eğitim Bilgisi";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<main class="page-content-area">
+    <div class="content-header-row">
+        <div>
+            <h1 class="page-title">Yeni Eğitim Bilgisi</h1>
+            <p class="page-subtitle">Akademik geçmişinize yeni bir okul, program veya sertifika ekleyin.</p>
+        </div>
+    </div>
+
+    <div class="data-table-card p-4" style="max-width: 820px;">
+        <partial name="_EducationForm" model="Model" />
+    </div>
+</main>
