@@ -20,5 +20,6 @@ namespace MYAcademy_PortfolioProject.Context
         public DbSet<Project> Projects { get; set; }
         public DbSet<About> Abouts { get; set; }
         public DbSet<Education> Educations { get; set; }
+        public DbSet<SocialMedia> SocialMedias { get; set; }
     }
 }

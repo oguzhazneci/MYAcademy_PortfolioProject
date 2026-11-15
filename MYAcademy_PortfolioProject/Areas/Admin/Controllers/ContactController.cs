@@ -16,22 +16,42 @@ namespace MYAcademy_PortfolioProject.Areas.Admin.Controllers
 
         public IActionResult ContactList()
         {
-            var values = _context.Contacts.ToList();
-            return View();
+            return RedirectToAction(nameof(UpdateContact));
         }
 
         [HttpGet]
         public IActionResult CreateContact()
         {
-            return View();
+            return RedirectToAction(nameof(UpdateContact));
+        }
+
+        [HttpGet]
+        public IActionResult UpdateContact()
+        {
+            var value = _context.Contacts.FirstOrDefault() ?? new Contact();
+            return View(value);
         }
 
         [HttpPost]
-        public IActionResult CreateContact(Contact contact)
+        public IActionResult UpdateContact(Contact contact)
         {
-            _context.Contacts.Add(contact);
+            if (!ModelState.IsValid)
+            {
+                return View(contact);
+            }
+
+            if (contact.ContactId == 0)
+            {
+                _context.Contacts.Add(contact);
+            }
+            else
+            {
+                _context.Contacts.Update(contact);
+            }
+
             _context.SaveChanges();
-            return RedirectToAction("ContactList");
+            TempData["SuccessMessage"] = "İletişim bilgileri kaydedildi.";
+            return RedirectToAction(nameof(UpdateContact));
         }
     }
 }

@@ -1,0 +1,11 @@
+﻿@model List<SocialMedia>
+
+@* Küçük, yazılı linkler: Footer'da kullanılır. *@
+<div class="d-flex flex-wrap gap-3">
+    @foreach (var item in Model)
+    {
+        <a href="@item.Url" target="_blank" rel="noopener noreferrer" class="text-muted small text-decoration-none">
+            <i class="bi @item.IconClass"></i> @item.Name
+        </a>
+    }
+</div>

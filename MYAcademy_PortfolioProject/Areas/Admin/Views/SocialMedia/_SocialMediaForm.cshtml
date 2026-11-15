@@ -1,0 +1,65 @@
+﻿@model SocialMedia
+
+<form method="post">
+    <input type="hidden" asp-for="SocialMediaId" />
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="Name" class="form-label">Platform</label>
+            <input asp-for="Name" class="form-control" placeholder="Örn: GitHub" />
+            <span asp-validation-for="Name" class="text-danger small"></span>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label asp-for="IconClass" class="form-label">İkon (Bootstrap Icons sınıfı)</label>
+            <div class="input-group">
+                <span class="input-group-text fs-5"><i id="iconPreview" class="bi @Model.IconClass"></i></span>
+                <input asp-for="IconClass" class="form-control" list="socialIcons" placeholder="Örn: bi-github" />
+            </div>
+            @* Sık kullanılan sosyal medya ikonları öneri olarak sunulur; başka bir ikon da yazılabilir. *@
+            <datalist id="socialIcons">
+                <option value="bi-github"></option>
+                <option value="bi-linkedin"></option>
+                <option value="bi-instagram"></option>
+                <option value="bi-youtube"></option>
+                <option value="bi-twitter-x"></option>
+                <option value="bi-medium"></option>
+                <option value="bi-globe"></option>
+            </datalist>
+            <span asp-validation-for="IconClass" class="text-danger small"></span>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Url" class="form-label">Bağlantı</label>
+        <input asp-for="Url" class="form-control" placeholder="https://github.com/kullaniciadi" />
+        <span asp-validation-for="Url" class="text-danger small"></span>
+    </div>
+
+    <div class="mb-3" style="max-width: 200px;">
+        <label asp-for="Order" class="form-label">Sıra</label>
+        <input asp-for="Order" class="form-control" />
+        <span asp-validation-for="Order" class="text-danger small"></span>
+    </div>
+
+    <div class="form-check form-switch mb-4">
+        <input asp-for="IsActive" class="form-check-input" role="switch" />
+        <label asp-for="IsActive" class="form-check-label">Aktif (sitede gösterilsin)</label>
+    </div>
+
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn-pastel-primary">
+            <i class="bi bi-save"></i>
+            <span>Kaydet</span>
+        </button>
+        <a asp-action="SocialMediaList" class="btn-pastel-secondary text-decoration-none">
+            <span>Vazgeç</span>
+        </a>
+    </div>
+</form>
+
+<script>
+    // İkon alanına yazdıkça (veya öneri listesinden seçtikçe) önizleme güncellenir.
+    document.getElementById('IconClass').addEventListener('input', function () {
+        document.getElementById('iconPreview').className = 'bi ' + this.value.trim();
+    });
+</script>

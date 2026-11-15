@@ -1,0 +1,19 @@
+﻿@model SocialMedia
+
+@{
+    ViewData["Title"] = "Sosyal Medya Bağlantısını Güncelle";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<main class="page-content-area">
+    <div class="content-header-row">
+        <div>
+            <h1 class="page-title">Sosyal Medya Bağlantısını Güncelle</h1>
+            <p class="page-subtitle">Seçtiğiniz bağlantının bilgilerini düzenleyin.</p>
+        </div>
+    </div>
+
+    <div class="data-table-card p-4" style="max-width: 720px;">
+        <partial name="_SocialMediaForm" model="Model" />
+    </div>
+</main>

@@ -409,6 +409,40 @@ namespace MYAcademy_PortfolioProject.Migrations
                     b.ToTable("SkillItems");
                 });
 
+            modelBuilder.Entity("MYAcademy_PortfolioProject.Entities.SocialMedia", b =>
+                {
+                    b.Property<int>("SocialMediaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SocialMediaId"));
+
+                    b.Property<string>("IconClass")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.HasKey("SocialMediaId");
+
+                    b.ToTable("SocialMedias");
+                });
+
             modelBuilder.Entity("MYAcademy_PortfolioProject.Entities.Project", b =>
                 {
                     b.HasOne("MYAcademy_PortfolioProject.Entities.Category", "Category")

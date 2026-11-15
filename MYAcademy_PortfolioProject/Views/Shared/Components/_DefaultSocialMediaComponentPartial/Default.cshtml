@@ -1,0 +1,9 @@
+﻿@model List<SocialMedia>
+
+@* Yuvarlak ikon butonlar: Hero ve İletişim bölümlerinde kullanılır. *@
+@foreach (var item in Model)
+{
+    <a href="@item.Url" target="_blank" rel="noopener noreferrer" class="social-pill" title="@item.Name" aria-label="@item.Name">
+        <i class="bi @item.IconClass"></i>
+    </a>
+}

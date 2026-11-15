@@ -1,0 +1,19 @@
+﻿@model SocialMedia
+
+@{
+    ViewData["Title"] = "Yeni Sosyal Medya Bağlantısı";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<main class="page-content-area">
+    <div class="content-header-row">
+        <div>
+            <h1 class="page-title">Yeni Sosyal Medya Bağlantısı</h1>
+            <p class="page-subtitle">Sitede görünecek yeni bir sosyal medya hesabı ekleyin.</p>
+        </div>
+    </div>
+
+    <div class="data-table-card p-4" style="max-width: 720px;">
+        <partial name="_SocialMediaForm" model="Model" />
+    </div>
+</main>
