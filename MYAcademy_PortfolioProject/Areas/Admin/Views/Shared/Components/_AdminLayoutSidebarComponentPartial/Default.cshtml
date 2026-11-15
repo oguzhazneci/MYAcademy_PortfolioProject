@@ -85,8 +85,8 @@
                     <span>Gelen Kutusu</span>
                     @if (unreadCount > 0)
                     {
-                        @* id: Gelen Kutusu sayfasındaki script, mesaj açılınca bu sayıyı da günceller (7.2). *@
-                        <span class="badge-count" id="sidebarUnreadBadge" title="Okunmamış mesaj">@unreadCount</span>
+                        @* data-unread-count: mesaj modalla açılınca script bu sayıyı da günceller; sıfıra inince rozet kaldırılır. *@
+                        <span class="badge-count" data-unread-count data-remove-when-zero title="Okunmamış mesaj">@unreadCount</span>
                     }
                 </a>
             </li>

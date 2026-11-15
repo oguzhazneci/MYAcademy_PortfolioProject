@@ -14,7 +14,7 @@
             <h1 class="page-title">Gelen Kutusu</h1>
             <p class="page-subtitle">
                 Toplam <strong>@ViewBag.TotalCount</strong> mesaj ·
-                <strong id="unreadCount">@ViewBag.UnreadCount</strong> okunmamış
+                <strong data-unread-count>@ViewBag.UnreadCount</strong> okunmamış
             </p>
         </div>
     </div>
@@ -75,7 +75,7 @@
                         // Liste görünümü için mesajın ilk 70 karakteri
                         string preview = item.MessageDetail.Length > 70 ? item.MessageDetail[..70] + "…" : item.MessageDetail;
 
-                        <tr class="@(item.IsRead ? "" : "message-unread")">
+                        <tr class="@(item.IsRead ? "" : "message-unread")" data-message-row data-unread="@(item.IsRead ? "false" : "true")">
                             <td>
                                 @if (!item.IsRead)
                                 {
@@ -97,6 +97,7 @@
                                     <button type="button" class="btn-action-icon btn-edit btn-open-message" data-message-id="@item.MessageId" title="Mesajı oku">
                                         <i class="bi bi-eye"></i>
                                     </button>
+
                                     <form asp-action="ToggleReadStatus" asp-route-id="@item.MessageId" method="post" class="d-inline">
                                         <input type="hidden" name="search" value="@search" />
                                         <input type="hidden" name="status" value="@status" />
@@ -105,6 +106,7 @@
                                         </button>
                                     </form>
 
+                                    @* Geçici onay: Aşama 9'da SweetAlert2 ile değiştirilecek. *@
                                     <form asp-action="DeleteMessage" asp-route-id="@item.MessageId" method="post" class="d-inline"
                                           onsubmit="return confirm('Bu mesajı silmek istediğinize emin misiniz?');">
                                         <input type="hidden" name="search" value="@search" />
@@ -121,73 +123,13 @@
             </table>
         </div>
     </div>
-    @* JavaScript'in POST isteğine ekleyeceği CSRF anahtarı (formlarda tag helper bunu kendisi ekliyordu). *@
-    @Html.AntiForgeryToken()
 
-    <!-- Mesaj Detayı Modalı: içeriği tıklanınca sunucudan gelir -->
-    <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalTitle" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title fs-5" id="messageModalTitle"><i class="bi bi-envelope-open me-2"></i>Mesaj Detayı</h2>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
-                </div>
-                <div class="modal-body" id="messageModalBody"></div>
-            </div>
-        </div>
-    </div>
+    @* Mesaj detayı modalı: Gösterge Paneli ile ortak parça *@
+    <partial name="_MessageModalPartial" />
+
 </main>
+
 @section Scripts {
-    <script>
-        const messageModal = new bootstrap.Modal(document.getElementById('messageModal'));
-        const modalBody = document.getElementById('messageModalBody');
-        const antiForgeryToken = document.querySelector('input[name="__RequestVerificationToken"]').value;
-        const openMessageUrl = '@Url.Action("OpenMessage")';   // → /Admin/Message/OpenMessage
-
-        document.querySelectorAll('.btn-open-message').forEach(button => {
-            button.addEventListener('click', async () => {
-                const id = button.dataset.messageId;
-
-                // 1) Modalı hemen aç, içerik gelene kadar "yükleniyor" göster
-                modalBody.innerHTML = '<div class="text-center text-muted py-4"><span class="spinner-border spinner-border-sm me-2"></span>Yükleniyor...</div>';
-                messageModal.show();
-
-                try {
-                    // 2) Sunucuya arka planda POST isteği: sayfa yenilenmez
-                    const response = await fetch(`${openMessageUrl}/${id}`, {
-                        method: 'POST',
-                        headers: { 'RequestVerificationToken': antiForgeryToken }
-                    });
-                    if (!response.ok) {
-                        throw new Error(response.status);
-                    }
-
-                    // 3) Sunucunun ürettiği HTML parçasını modalın içine yerleştir
-                    modalBody.innerHTML = await response.text();
-
-                    // 4) Satır okunmamışsa, sayfayı yenilemeden "okundu" görünümüne geçir
-                    const row = button.closest('tr');
-                    if (row.classList.contains('message-unread')) {
-                        row.classList.remove('message-unread');
-                        row.querySelector('.unread-dot')?.remove();
-                        row.querySelector('.btn-toggle-read i').className = 'bi bi-envelope';
-                        updateUnreadCount(-1);
-                    }
-                } catch (error) {
-                    modalBody.innerHTML = '<div class="alert alert-danger mb-0">Mesaj yüklenemedi. Sayfayı yenileyip tekrar deneyin.</div>';
-                }
-            });
-        });
-
-        // Sayfadaki okunmamış sayaçlarını günceller (başlık ve — 7.3'ten sonra — sidebar rozeti)
-        function updateUnreadCount(change) {
-            document.querySelectorAll('#unreadCount, #sidebarUnreadBadge').forEach(el => {
-                const newValue = Math.max(0, parseInt(el.textContent) + change);
-                el.textContent = newValue;
-                if (el.id === 'sidebarUnreadBadge' && newValue === 0) {
-                    el.remove();
-                }
-            });
-        }
-    </script>
+    @* asp-append-version: dosya değişince adrese yeni bir sürüm eki koyar; tarayıcı eski kopyayı kullanmaz. *@
+    <script src="~/js/admin-message-modal.js" asp-append-version="true"></script>
 }

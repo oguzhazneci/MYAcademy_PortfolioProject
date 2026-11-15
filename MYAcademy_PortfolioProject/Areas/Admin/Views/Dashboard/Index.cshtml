@@ -1,23 +1,24 @@
-﻿@{
-    ViewData["Title"] = "Dashboard";
+﻿@model DashboardViewModel
+
+@{
+    ViewData["Title"] = "Gösterge Paneli";
     Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
 
-    // Dinamik veriler (controller'dan)
-    int total = ViewBag.v1;
-    int unread = ViewBag.v2;
-    int read = ViewBag.v3;
-    int rate = total == 0 ? 0 : read * 100 / total;
-
-    // Statik (UI) veriler
-    var labels = new[] { "Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz" };
-    var counts = new[] { 4, 7, 3, 9, 6, 2, 5 };
-    int max = counts.Max();
-    var last = new[] {
-        (Name: "Ayşe Yılmaz",  Subject: "Proje teklifi",      Text: "Merhaba, web siteniz için bir teklif almak istiyorum.", Date: "03 Kas, 14:20", IsRead: false),
-        (Name: "Mehmet Kaya",  Subject: "İş birliği",         Text: "Portfolyonuzu inceledim, birlikte çalışmak isteriz.",   Date: "02 Kas, 10:05", IsRead: false),
-        (Name: "Zeynep Demir", Subject: "Teşekkürler",        Text: "Geçen haftaki görüşme için teşekkür ederim.",            Date: "01 Kas, 18:42", IsRead: true),
-        (Name: "Can Öztürk",   Subject: "Staj başvurusu",     Text: "Ekibinizde staj imkânı olup olmadığını öğrenmek isterim.", Date: "31 Eki, 09:15", IsRead: true)
+    // İstatistik kartları: tek bir döngüyle çizilsin diye liste halinde.
+    // Her kart, sayısının ait olduğu yönetim sayfasına link veriyor.
+    var stats = new[]
+    {
+        (Val: Model.TotalProjectCount,  Lbl: "Toplam Proje",     Icon: "bi-code-slash",            Cls: "c-green",  Controller: "Project",    Action: "ProjectList"),
+        (Val: Model.ActiveProjectCount, Lbl: "Aktif Proje",      Icon: "bi-check2-circle",         Cls: "c-blue",   Controller: "Project",    Action: "ProjectList"),
+        (Val: Model.SkillCount,         Lbl: "Yetenek",          Icon: "bi-stars",                 Cls: "c-amber",  Controller: "SkillItem",  Action: "SkillItemList"),
+        (Val: Model.ExperienceCount,    Lbl: "Deneyim",          Icon: "bi-briefcase",             Cls: "c-purple", Controller: "Experience", Action: "ExperienceList"),
+        (Val: Model.EducationCount,     Lbl: "Eğitim",           Icon: "bi-mortarboard",           Cls: "c-green",  Controller: "Education",  Action: "EducationList"),
+        (Val: Model.TotalMessageCount,  Lbl: "Toplam Mesaj",     Icon: "bi-envelope",              Cls: "c-blue",   Controller: "Message",    Action: "MessageList"),
+        (Val: Model.UnreadMessageCount, Lbl: "Okunmamış Mesaj",  Icon: "bi-envelope-exclamation",  Cls: "c-rose",   Controller: "Message",    Action: "MessageList")
     };
+
+    // Kategori grafiği: en yüksek çubuk %100 olacak şekilde oranlanır. (Max'ın 0 olmasına karşı en az 1)
+    int maxProjectCount = Model.CategorySummary.Any() ? Model.CategorySummary.Max(x => x.ProjectCount) : 1;
 }
 
 <style>
@@ -210,89 +211,205 @@
         padding: .3rem .6rem;
         border-radius: 20px;
     }
+
+    /* Aşama 8: eklenen renkler ve yardımcı sınıflar */
+    .c-amber {
+        background: #fbf0dc;
+        color: #9a6a1c;
+    }
+
+    .c-purple {
+        background: #efe8f6;
+        color: #6b4c8f;
+    }
+
+    /* Tıklanabilir istatistik kartı: ilgili yönetim sayfasına götürür */
+    a.db-card {
+        color: inherit;
+        text-decoration: none;
+        transition: transform .15s, box-shadow .15s;
+    }
+
+        a.db-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(47, 93, 78, .08);
+        }
+
+    .bar span {
+        text-align: center;
+        line-height: 1.2;
+    }
+
+    .project-mini-thumb {
+        width: 56px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 1px solid var(--line);
+        flex-shrink: 0;
+    }
 </style>
 
-<div class="db container-fluid py-3">
+<main class="page-content-area db">
 
-    <!-- Dinamik istatistik kartları -->
-    <div class="row g-4 mb-4">
-        @{
-            var stats = new[] {
-                (Val: total,  Lbl: "Toplam Mesaj", Icon: "bi-envelope",             Cls: "c-green"),
-                (Val: unread, Lbl: "Okunmamış",    Icon: "bi-envelope-exclamation", Cls: "c-rose"),
-                (Val: read,   Lbl: "Okunmuş",      Icon: "bi-envelope-check",       Cls: "c-blue")
-            };
-        }
+    <!-- Başlık + Hızlı Erişim -->
+    <div class="content-header-row">
+        <div>
+            <h1 class="page-title">Gösterge Paneli</h1>
+            <p class="page-subtitle">Sitenizin güncel özeti · @DateTime.Now.ToString("dd MMMM yyyy, dddd", new System.Globalization.CultureInfo("tr-TR"))</p>
+        </div>
+        <div class="header-actions">
+            <a asp-controller="Project" asp-action="CreateProject" class="btn-pastel-primary text-decoration-none">
+                <i class="bi bi-plus-circle-fill"></i>
+                <span>Yeni Proje Ekle</span>
+            </a>
+            <a asp-controller="Message" asp-action="MessageList" asp-route-status="unread" class="btn-pastel-secondary text-decoration-none">
+                <i class="bi bi-inbox"></i>
+                <span>Okunmamış Mesajlar (<span data-unread-count>@Model.UnreadMessageCount</span>)</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- İstatistik kartları -->
+    <div class="row row-cols-2 row-cols-md-3 row-cols-xl-4 g-3 mb-4">
         @foreach (var s in stats)
         {
-            <div class="col-md-4">
-                <div class="db-card stat">
+            <div class="col">
+                <a asp-controller="@s.Controller" asp-action="@s.Action" class="db-card stat">
                     <div class="stat-icon @s.Cls"><i class="bi @s.Icon"></i></div>
                     <div>
                         <div class="stat-val">@s.Val</div>
                         <div class="stat-lbl">@s.Lbl</div>
                     </div>
-                </div>
+                </a>
             </div>
         }
     </div>
 
     <div class="row g-4 mb-4">
-        <!-- Haftalık grafik (statik) -->
+        <!-- Kategori özeti (GroupBy) -->
         <div class="col-xl-8">
             <div class="db-card">
-                <div class="db-title">Son 7 Gün <small>Günlük gelen mesajlar</small></div>
-                <div class="bars">
-                    @for (int i = 0; i < 7; i++)
-                    {
-                        <div class="bar">
-                            <b>@counts[i]</b>
-                            <div class="bar-fill" style="height:@(counts[i] * 100 / max)%"></div>
-                            <span>@labels[i]</span>
-                        </div>
-                    }
-                </div>
-            </div>
-        </div>
-
-        <!-- Okunma oranı (v1 ve v3'ten hesaplanır) -->
-        <div class="col-xl-4">
-            <div class="db-card">
-                <div class="db-title">Okunma Oranı</div>
-                <div class="donut" style="--p:@rate"><div>%@rate</div></div>
-                <div class="legend">
-                    <span><i style="background:var(--g)"></i>Okundu (@read)</span>
-                    <span><i style="background:var(--g-soft)"></i>Okunmadı (@unread)</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Son mesajlar (statik) -->
-    <div class="db-card">
-        <div class="db-title">
-            Son Mesajlar
-            <a asp-area="Admin" asp-controller="Message" asp-action="MessageList" class="small text-decoration-none" style="color:var(--g)">Tümünü gör →</a>
-        </div>
-
-        @foreach (var m in last)
-        {
-            <div class="msg-row">
-                <div class="avatar">@m.Name.Substring(0, 1)</div>
-                <div class="msg-body">
-                    <strong>@m.Name</strong> · <span class="small">@m.Subject</span>
-                    <p>@m.Text</p>
-                </div>
-                <small class="text-muted d-none d-md-block">@m.Date</small>
-                @if (m.IsRead)
+                <div class="db-title">Kategorilere Göre Projeler <small>GroupBy ile hesaplanır</small></div>
+                @if (!Model.CategorySummary.Any())
                 {
-                    <span class="badge-soft c-blue">Okundu</span>
+                    <p class="text-muted small mb-0">Henüz proje eklenmedi.</p>
                 }
                 else
                 {
-                    <span class="badge-soft c-rose">Yeni</span>
+                    <div class="bars">
+                        @foreach (var c in Model.CategorySummary)
+                        {
+                            <div class="bar" title="@c.CategoryName: @c.ProjectCount proje">
+                                <b>@c.ProjectCount</b>
+                                <div class="bar-fill" style="height:@(c.ProjectCount * 100 / maxProjectCount)%"></div>
+                                <span>@c.CategoryName</span>
+                            </div>
+                        }
+                    </div>
                 }
             </div>
-        }
+        </div>
+
+        <!-- Okunma oranı -->
+        <div class="col-xl-4">
+            <div class="db-card">
+                <div class="db-title">Mesaj Okunma Oranı</div>
+                <div class="donut" style="--p:@Model.ReadRate"><div>%@Model.ReadRate</div></div>
+                <div class="legend">
+                    <span><i style="background:var(--g)"></i>Okundu (@(Model.TotalMessageCount - Model.UnreadMessageCount))</span>
+                    <span><i style="background:var(--g-soft)"></i>Okunmadı (@Model.UnreadMessageCount)</span>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+
+    <div class="row g-4">
+        <!-- Son 5 mesaj -->
+        <div class="col-xl-7">
+            <div class="db-card">
+                <div class="db-title">
+                    Son Mesajlar
+                    <a asp-controller="Message" asp-action="MessageList" class="small text-decoration-none" style="color:var(--g)">Tümünü gör →</a>
+                </div>
+
+                @if (!Model.LastMessages.Any())
+                {
+                    <p class="text-muted small mb-0">Henüz mesaj gelmedi.</p>
+                }
+
+                @foreach (var m in Model.LastMessages)
+                {
+                    <div class="msg-row" data-message-row data-unread="@(m.IsRead ? "false" : "true")">
+                        <div class="avatar">@m.SenderName.Substring(0, 1).ToUpper()</div>
+                        <div class="msg-body">
+                            <strong>@m.SenderName</strong> · <span class="small">@m.Subject</span>
+                            <p>@m.MessageDetail</p>
+                        </div>
+                        <small class="text-muted d-none d-md-block text-nowrap">@m.SendDate.ToString("dd.MM HH:mm")</small>
+                        @if (m.IsRead)
+                        {
+                            <span class="badge-soft c-blue message-status-badge">Okundu</span>
+                        }
+                        else
+                        {
+                            <span class="badge-soft c-rose message-status-badge">Yeni</span>
+                        }
+                        <button type="button" class="btn-action-icon btn-edit btn-open-message" data-message-id="@m.MessageId" title="Mesajı oku">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Son eklenen 3 proje -->
+        <div class="col-xl-5">
+            <div class="db-card">
+                <div class="db-title">
+                    Son Eklenen Projeler
+                    <a asp-controller="Project" asp-action="ProjectList" class="small text-decoration-none" style="color:var(--g)">Tümünü gör →</a>
+                </div>
+
+                @if (!Model.LastProjects.Any())
+                {
+                    <p class="text-muted small mb-0">Henüz proje eklenmedi.</p>
+                }
+
+                @foreach (var p in Model.LastProjects)
+                {
+                    <div class="msg-row">
+                        @if (!string.IsNullOrEmpty(p.ImageUrl))
+                        {
+                            <img src="@p.ImageUrl" alt="@p.ProjectTitle" class="project-mini-thumb" />
+                        }
+                        else
+                        {
+                            <div class="avatar"><i class="bi bi-image"></i></div>
+                        }
+                        <div class="msg-body">
+                            <a asp-controller="Project" asp-action="UpdateProject" asp-route-id="@p.ProjectId" class="fw-semibold text-dark text-decoration-none">@p.ProjectTitle</a>
+                            <p>@p.Category?.CategoryName</p>
+                        </div>
+                        @if (p.IsActive)
+                        {
+                            <span class="badge-soft c-green">Aktif</span>
+                        }
+                        else
+                        {
+                            <span class="badge-soft c-rose">Pasif</span>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    @* Gelen Kutusu ile aynı modal ve aynı script *@
+    <partial name="_MessageModalPartial" />
+
+</main>
+
+@section Scripts {
+    <script src="~/js/admin-message-modal.js" asp-append-version="true"></script>
+}
