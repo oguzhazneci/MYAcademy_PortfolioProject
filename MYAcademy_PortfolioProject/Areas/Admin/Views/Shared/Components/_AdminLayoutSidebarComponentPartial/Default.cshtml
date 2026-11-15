@@ -1,4 +1,15 @@
-﻿<aside class="admin-sidebar" id="adminSidebar">
+﻿@{
+    // Şu an açık olan sayfanın controller adı (örn: "Project")
+    string currentController = ViewContext.RouteData.Values["controller"]?.ToString() ?? "";
+
+    // Verilen controller'lardan biri açıksa "active" sınıfını döner.
+    // Birden fazla ad alır: Projeler menüsü hem Project hem Category sayfalarında aktif görünsün.
+    string ActiveIf(params string[] controllers) => controllers.Contains(currentController) ? "active" : "";
+
+    int unreadCount = ViewBag.UnreadCount;
+}
+
+<aside class="admin-sidebar" id="adminSidebar">
     <!-- Brand Header -->
     <div class="sidebar-header">
         <div class="brand-mark">
@@ -15,67 +26,72 @@
         <div class="menu-section-label">Menü</div>
         <ul class="sidebar-nav">
             <li>
-                <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="sidebar-link">
+                <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="sidebar-link @ActiveIf("Dashboard")">
                     <i class="bi bi-grid-1x2"></i>
                     <span>Gösterge Paneli</span>
                 </a>
             </li>
             <li>
-                <a asp-area="Admin" asp-controller="HeroSection" asp-action="UpdateHeroSection" class="sidebar-link">
+                <a asp-area="Admin" asp-controller="HeroSection" asp-action="UpdateHeroSection" class="sidebar-link @ActiveIf("HeroSection")">
                     <i class="bi bi-house"></i>
                     <span>Karşılama Alanı</span>
                 </a>
             </li>
             <li>
-                <a asp-area="Admin" asp-controller="HeroTitle" asp-action="HeroTitleList" class="sidebar-link">
+                <a asp-area="Admin" asp-controller="HeroTitle" asp-action="HeroTitleList" class="sidebar-link @ActiveIf("HeroTitle")">
                     <i class="bi bi-cursor-text"></i>
                     <span>Typewriter Yazıları</span>
                 </a>
             </li>
             <li>
-                <a asp-area="Admin" asp-controller="About" asp-action="UpdateAbout" class="sidebar-link">
+                <a asp-area="Admin" asp-controller="About" asp-action="UpdateAbout" class="sidebar-link @ActiveIf("About")">
                     <i class="bi bi-person"></i>
                     <span>Hakkımda</span>
                 </a>
             </li>
             <li>
-                <a asp-area="Admin" asp-controller="Skill" asp-action="SkillList" class="sidebar-link">
+                <a asp-area="Admin" asp-controller="Skill" asp-action="SkillList" class="sidebar-link @ActiveIf("Skill", "SkillItem")">
                     <i class="bi bi-stars"></i>
                     <span>Yeteneklerim</span>
                 </a>
             </li>
             <li>
-                <a asp-area="Admin" asp-controller="Experience" asp-action="ExperienceList" class="sidebar-link">
+                <a asp-area="Admin" asp-controller="Experience" asp-action="ExperienceList" class="sidebar-link @ActiveIf("Experience")">
                     <i class="bi bi-journal-bookmark-fill"></i>
                     <span>Deneyimlerim</span>
                 </a>
             </li>
             <li>
-                <a asp-area="Admin" asp-controller="Project" asp-action="ProjectList" class="sidebar-link">
+                <a asp-area="Admin" asp-controller="Project" asp-action="ProjectList" class="sidebar-link @ActiveIf("Project", "Category")">
                     <i class="bi bi-code-slash"></i>
                     <span>Projelerim</span>
                 </a>
             </li>
             <li>
-                <a asp-area="Admin" asp-controller="Education" asp-action="EducationList" class="sidebar-link">
+                <a asp-area="Admin" asp-controller="Education" asp-action="EducationList" class="sidebar-link @ActiveIf("Education")">
                     <i class="bi bi-mortarboard"></i>
                     <span>Eğitim</span>
                 </a>
             </li>
             <li>
-                <a asp-area="Admin" asp-controller="Contact" asp-action="UpdateContact" class="sidebar-link">
+                <a asp-area="Admin" asp-controller="Contact" asp-action="UpdateContact" class="sidebar-link @ActiveIf("Contact")">
                     <i class="bi bi-envelope"></i>
                     <span>İletişim</span>
                 </a>
             </li>
             <li>
-                <a asp-area="Admin" asp-controller="Message" asp-action="MessageList" class="sidebar-link">
+                <a asp-area="Admin" asp-controller="Message" asp-action="MessageList" class="sidebar-link @ActiveIf("Message")">
                     <i class="bi bi-inbox"></i>
                     <span>Gelen Kutusu</span>
+                    @if (unreadCount > 0)
+                    {
+                        @* id: Gelen Kutusu sayfasındaki script, mesaj açılınca bu sayıyı da günceller (7.2). *@
+                        <span class="badge-count" id="sidebarUnreadBadge" title="Okunmamış mesaj">@unreadCount</span>
+                    }
                 </a>
             </li>
             <li>
-                <a asp-area="Admin" asp-controller="SocialMedia" asp-action="SocialMediaList" class="sidebar-link">
+                <a asp-area="Admin" asp-controller="SocialMedia" asp-action="SocialMediaList" class="sidebar-link @ActiveIf("SocialMedia")">
                     <i class="bi bi-share"></i>
                     <span>Sosyal Medya</span>
                 </a>

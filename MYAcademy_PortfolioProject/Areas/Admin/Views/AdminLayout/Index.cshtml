@@ -24,5 +24,8 @@
 
     @await Component.InvokeAsync("_AdminLayoutScriptComponentPartial")
 
+    @* Sayfaya özel script'ler buraya gelir: Bootstrap ve ortak script'lerden SONRA çalışırlar. *@
+    @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>
