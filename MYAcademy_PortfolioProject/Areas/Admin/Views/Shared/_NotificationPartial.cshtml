@@ -1,0 +1,15 @@
+﻿@* Controller'lardan TempData ile gelen başarı/hata mesajları.
+   Sadece veriyi HTML'e yazar; gösterme işini wwwroot/js/admin-ui.js yapar (SweetAlert2 ile).
+   Layout'ta bir kez çağrılır, böylece hiçbir view'ın kendi bildirim bloğu olması gerekmez. *@
+
+@{
+    var successMessage = TempData["SuccessMessage"] as string;
+    var errorMessage = TempData["ErrorMessage"] as string;
+}
+
+@if (successMessage != null || errorMessage != null)
+{
+    <div id="adminNotification" hidden
+         data-success="@successMessage"
+         data-error="@errorMessage"></div>
+}

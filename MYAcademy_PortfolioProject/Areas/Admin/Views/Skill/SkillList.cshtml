@@ -24,22 +24,6 @@
         </div>
     </div>
 
-    @if (TempData["SuccessMessage"] != null)
-    {
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <i class="bi bi-check-circle-fill me-2"></i>@TempData["SuccessMessage"]
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Kapat"></button>
-        </div>
-    }
-
-    @if (TempData["ErrorMessage"] != null)
-    {
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <i class="bi bi-exclamation-triangle-fill me-2"></i>@TempData["ErrorMessage"]
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Kapat"></button>
-        </div>
-    }
-
     <div class="data-table-card">
         <div class="table-responsive-wrapper">
             <table class="custom-admin-table">
@@ -75,7 +59,7 @@
 
                                     @* Geçici onay: Aşama 9'da SweetAlert2 ile değiştirilecek. *@
                                     <form asp-action="DeleteSkill" asp-route-id="@item.SkillId" method="post" class="d-inline"
-                                          onsubmit="return confirm('Bu kategoriyi silmek istediğinize emin misiniz?');">
+                                          data-confirm="Bu kategoriyi silmek istediğinize emin misiniz?">
                                         <button type="submit" class="btn-action-icon btn-delete" title="Sil">
                                             <i class="bi bi-trash"></i>
                                         </button>

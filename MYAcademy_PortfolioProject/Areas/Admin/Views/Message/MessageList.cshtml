@@ -19,14 +19,6 @@
         </div>
     </div>
 
-    @if (TempData["SuccessMessage"] != null)
-    {
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <i class="bi bi-check-circle-fill me-2"></i>@TempData["SuccessMessage"]
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Kapat"></button>
-        </div>
-    }
-
     @* Arama ve filtre: GET formu, seçimler adres çubuğunda taşınır (5.3'teki gibi). *@
     <form method="get" asp-action="MessageList" class="d-flex flex-wrap align-items-center gap-2 mb-3">
         <div class="input-group" style="max-width: 360px;">
@@ -108,7 +100,7 @@
 
                                     @* Geçici onay: Aşama 9'da SweetAlert2 ile değiştirilecek. *@
                                     <form asp-action="DeleteMessage" asp-route-id="@item.MessageId" method="post" class="d-inline"
-                                          onsubmit="return confirm('Bu mesajı silmek istediğinize emin misiniz?');">
+                                          data-confirm="Bu mesajı silmek istediğinize emin misiniz?">
                                         <input type="hidden" name="search" value="@search" />
                                         <input type="hidden" name="status" value="@status" />
                                         <button type="submit" class="btn-action-icon btn-delete" title="Sil">

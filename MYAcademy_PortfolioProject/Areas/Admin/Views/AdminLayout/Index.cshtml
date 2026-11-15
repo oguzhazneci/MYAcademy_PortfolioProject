@@ -22,6 +22,9 @@
         </div>
     </div>
 
+    @* TempData bildirimleri: bütün admin sayfaları için tek merkez (script'lerden ÖNCE, ki admin-ui.js bulabilsin) *@
+    <partial name="_NotificationPartial" />
+
     @await Component.InvokeAsync("_AdminLayoutScriptComponentPartial")
 
     @* Sayfaya özel script'ler buraya gelir: Bootstrap ve ortak script'lerden SONRA çalışırlar. *@

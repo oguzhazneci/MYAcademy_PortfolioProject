@@ -1,36 +1,45 @@
-﻿<header class="admin-navbar">
+﻿@{
+    bool hasUnread = ViewBag.HasUnread;
+}
+
+<header class="admin-navbar">
     <div class="navbar-left">
         <button class="sidebar-toggle-btn" id="sidebarToggle" aria-label="Menüyü Aç/Kapat">
             <i class="bi bi-list"></i>
         </button>
+        @* Sayfa yolu: her view'ın kendi ViewData["Title"] değerinden gelir. *@
         <div class="breadcrumb-custom">
-            <a href="#"><i class="bi bi-house me-1"></i> Ana Sayfa</a>
+            <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index"><i class="bi bi-house me-1"></i> Gösterge Paneli</a>
             <span class="separator">/</span>
-            <span class="active-crumb">#</span>
+            <span class="active-crumb">@ViewData["Title"]</span>
         </div>
     </div>
 
     <div class="navbar-right">
-        <!-- Search bar -->
-        <div class="nav-search-box">
+        @* Hızlı arama: Gelen Kutusu'ndaki aramayı kullanır (7.1'deki ?search= parametresi). *@
+        <form asp-area="Admin" asp-controller="Message" asp-action="MessageList" method="get" class="nav-search-box" role="search">
             <i class="bi bi-search"></i>
-            <input type="text" placeholder="Aranacak kelime..." id="navQuickSearch">
-        </div>
+            <input type="search" name="search" placeholder="Mesajlarda ara..." aria-label="Mesajlarda ara">
+        </form>
 
         <!-- Quick Action Button -->
-        <button class="btn-quick-add" onclick="openAddModal()">
+        <a asp-area="Admin" asp-controller="Project" asp-action="CreateProject" class="btn-quick-add text-decoration-none">
             <i class="bi bi-plus-lg"></i>
-            <span>Hızlı Ekle</span>
-        </button>
-
-        <!-- Notification Bell -->
-        <a href="javascript:void(0)" class="icon-action-btn" title="Bildirimler" id="notificationBtn">
-            <i class="bi bi-bell"></i>
-            <span class="notification-dot"></span>
+            <span>Yeni Proje</span>
         </a>
 
-        <!-- Messages / Quick Access -->
-        <a href="javascript:void(0)" class="icon-action-btn" title="Mesajlar">
+        <!-- Notification Bell: okunmamış mesajlara gider -->
+        <a asp-area="Admin" asp-controller="Message" asp-action="MessageList" asp-route-status="unread"
+           class="icon-action-btn" title="@(hasUnread ? "Okunmamış mesajlarınız var" : "Okunmamış mesaj yok")">
+            <i class="bi bi-bell"></i>
+            @if (hasUnread)
+            {
+                <span class="notification-dot"></span>
+            }
+        </a>
+
+        <!-- Messages -->
+        <a asp-area="Admin" asp-controller="Message" asp-action="MessageList" class="icon-action-btn" title="Gelen Kutusu">
             <i class="bi bi-chat-left-text"></i>
         </a>
 
