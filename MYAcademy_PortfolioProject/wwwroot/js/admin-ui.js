@@ -18,8 +18,8 @@ document.addEventListener('submit', function (event) {
         showCancelButton: true,
         confirmButtonText: 'Evet, sil',
         cancelButtonText: 'Vazgeç',
-        confirmButtonColor: '#b44b4b',
-        cancelButtonColor: '#8a8a85',
+        confirmButtonColor: '#1F4E8C',   // Panelin ana rengi (--accent-primary)
+        cancelButtonColor: '#8A94A6',
         reverseButtons: true,   // "Vazgeç" solda, "Evet" sağda
         focusCancel: true       // Enter'a yanlışlıkla basılırsa silme değil vazgeçme çalışsın
     }).then(function (result) {

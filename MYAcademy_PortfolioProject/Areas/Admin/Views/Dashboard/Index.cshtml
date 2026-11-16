@@ -23,10 +23,10 @@
 
 <style>
     .db {
-        --g: #2f5d4e;
-        --g-soft: #e7efe9;
-        --line: #ebe8e1;
-        --muted: #8a8a85;
+        --g: var(--accent-primary);
+        --g-soft: var(--accent-primary-soft);
+        --line: var(--border-color);
+        --muted: var(--text-secondary);
     }
 
     .db-card {
@@ -232,7 +232,7 @@
 
         a.db-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 18px rgba(47, 93, 78, .08);
+            box-shadow: 0 6px 18px rgba(var(--accent-primary-rgb), .08);
         }
 
     .bar span {
