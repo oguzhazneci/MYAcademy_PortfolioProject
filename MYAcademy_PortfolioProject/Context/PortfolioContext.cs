@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MYAcademy_PortfolioProject.Data;
 using MYAcademy_PortfolioProject.Entities;
 
 namespace MYAcademy_PortfolioProject.Context
@@ -7,7 +8,15 @@ namespace MYAcademy_PortfolioProject.Context
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=PortfolioDayDb;integrated security=true;Trust Server Certificate=true;");
+            optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=PortfolioDayDb;integrated security=true;Trust Server Certificate=true;")
+                // Başlangıç verisi: Update-Database (Migrate) sırasında çalışır; veritabanı boşsa seed-data.json'dan doldurur.
+                // EF Core hem senkron hem asenkron sürümün tanımlanmasını önerir; ikisi de aynı metodu çağırıyor.
+                .UseSeeding((context, _) => SeedData.Seed((PortfolioContext)context))
+                .UseAsyncSeeding((context, _, cancellationToken) =>
+                {
+                    SeedData.Seed((PortfolioContext)context);
+                    return Task.CompletedTask;
+                });
         }
         public DbSet<Experience> Experiences { get; set; }
         public DbSet<HeroSection> HeroSections { get; set; }

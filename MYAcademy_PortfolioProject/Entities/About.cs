@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Globalization;
 
 namespace MYAcademy_PortfolioProject.Entities
 {
@@ -58,5 +60,22 @@ namespace MYAcademy_PortfolioProject.Entities
         [StringLength(50, ErrorMessage = "İstatistik etiketi en fazla 50 karakter olabilir.")]
         public string StatLabel3 { get; set; }
 
+        // Veritabanında sütunu yok; ad soyaddan hesaplanır. "Oğuz Hazneci" → "OH" (avatar dairelerinde kullanılır)
+        [NotMapped]
+        public string Initials
+        {
+            get
+            {
+                var words = (FullName ?? string.Empty).Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                if (words.Length == 0)
+                {
+                    return "?";
+                }
+
+                var first = words[0][0].ToString();
+                var last = words.Length > 1 ? words[^1][0].ToString() : string.Empty;
+                return (first + last).ToUpper(new CultureInfo("tr-TR"));
+            }
+        }
     }
 }

@@ -617,6 +617,14 @@
     }
 
     /* Contact Form */
+    /* Honeypot alanı: ekranın dışına itilir (display:none değil, bkz. Index.cshtml) */
+    .hp-field {
+        position: absolute;
+        left: -10000px;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+    }
     /* Tag helper, ModelState'te hatası olan alana otomatik olarak "input-validation-error" sınıfını ekler. */
     .form-control-custom.input-validation-error {
         border-color: #C0574F;

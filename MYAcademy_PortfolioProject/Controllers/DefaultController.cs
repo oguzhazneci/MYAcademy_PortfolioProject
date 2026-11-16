@@ -2,16 +2,19 @@
 using MYAcademy_PortfolioProject.Context;
 using MYAcademy_PortfolioProject.Entities;
 using MYAcademy_PortfolioProject.Models;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace MYAcademy_PortfolioProject.Controllers
 {
     public class DefaultController : Controller
     {
         private readonly PortfolioContext _context;
+        private readonly ILogger<DefaultController> _logger;
 
-        public DefaultController(PortfolioContext context)
+        public DefaultController(PortfolioContext context, ILogger<DefaultController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         public IActionResult Index()
@@ -30,8 +33,20 @@ namespace MYAcademy_PortfolioProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]   // Formun gerçekten bu siteden gönderildiğini doğrular (CSRF koruması).
+        [EnableRateLimiting("contact-form")]   // Program.cs'teki politika: IP başına 10 dakikada 3 gönderim
         public IActionResult SendMessage(SendMessageViewModel model)
         {
+            // Honeypot doluysa gönderen büyük ihtimalle bir bot.
+            // Hata vermiyoruz, başarılı gibi davranıyoruz: bot neyin onu ele verdiğini öğrenmesin.
+            if (!string.IsNullOrEmpty(model.Website))
+            {
+                _logger.LogWarning("İletişim formunda spam engellendi (honeypot dolu). IP: {Ip}",
+                    HttpContext.Connection.RemoteIpAddress);
+
+                TempData["ContactSuccess"] = "Mesajınız iletildi. En kısa sürede size dönüş yapacağım.";
+                return RedirectToAction(nameof(Index), null, null, "contact");
+            }
+
             if (!ModelState.IsValid)
             {
                 // Hatalarla birlikte aynı sayfayı geri çiz: ziyaretçinin yazdıkları kaybolmasın.

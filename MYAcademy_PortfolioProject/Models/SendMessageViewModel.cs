@@ -22,5 +22,9 @@ namespace MYAcademy_PortfolioProject.Models
         [Required(ErrorMessage = "Lütfen mesajınızı yazın.")]
         [StringLength(2000, MinimumLength = 10, ErrorMessage = "Mesajınız 10 ile 2000 karakter arasında olmalıdır.")]
         public string MessageDetail { get; set; } = string.Empty;
+        // Honeypot (bal küpü): gerçek ziyaretçi bu alanı görmez, dolayısıyla hep boş gelir.
+        // Formdaki her alanı otomatik dolduran spam botları ise buna da bir şey yazar → mesaj kaydedilmez.
+        // Bilerek "Website" gibi doğal bir ad verildi: botlar "honeypot" adlı alanı atlamayı öğrenmiş olabilir.
+        public string? Website { get; set; }
     }
 }

@@ -1239,4 +1239,77 @@
             background-color: #6E9277;
         }
     }
+    /* Giriş sayfası */
+    .login-page {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        background-color: var(--bg-main);
+    }
+
+    .login-card {
+        width: 100%;
+        max-width: 400px;
+        background-color: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 18px;
+        padding: 36px 32px;
+        box-shadow: 0 8px 30px rgba(46, 49, 47, 0.06);
+    }
+
+    .login-icon {
+        width: 56px;
+        height: 56px;
+        margin: 0 auto 14px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        background-color: var(--accent-pastel-green);
+        color: var(--state-success-text);
+    }
+
+    .login-title {
+        font-size: 1.35rem;
+        font-weight: 700;
+        margin-bottom: 4px;
+    }
+
+    .login-subtitle {
+        color: var(--text-secondary);
+        font-size: 0.875rem;
+        margin: 0;
+    }
+
+    .login-back-link {
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+        text-decoration: none;
+    }
+
+        .login-back-link:hover {
+            color: var(--text-primary);
+        }
+    /* Profil açılır menüsü: <div> yerine <button> olduğu için tarayıcının varsayılan buton stilini sıfırla */
+    button.nav-profile-pill {
+        font: inherit;
+        color: inherit;
+    }
+
+    .profile-menu {
+        min-width: 220px;
+        border-radius: 12px;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 8px 24px rgba(46, 49, 47, 0.08);
+        padding: 6px;
+        font-size: 0.875rem;
+    }
+
+        .profile-menu .dropdown-item {
+            border-radius: 8px;
+            padding: 7px 10px;
+        }
 </style>

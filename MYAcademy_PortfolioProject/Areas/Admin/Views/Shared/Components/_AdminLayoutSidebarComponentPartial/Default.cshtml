@@ -7,6 +7,8 @@
     string ActiveIf(params string[] controllers) => controllers.Contains(currentController) ? "active" : "";
 
     int unreadCount = ViewBag.UnreadCount;
+    string fullName = ViewBag.FullName;
+    string initials = ViewBag.Initials;
 }
 
 <aside class="admin-sidebar" id="adminSidebar">
@@ -16,7 +18,7 @@
             <i class="bi bi-briefcase-fill"></i>
         </div>
         <div class="brand-text">
-            <h1>Oğuz Hazneci</h1>
+            <h1>@fullName</h1>
             <span>Yönetim Paneli</span>
         </div>
     </div>
@@ -34,7 +36,7 @@
             <li>
                 <a asp-area="Admin" asp-controller="HeroSection" asp-action="UpdateHeroSection" class="sidebar-link @ActiveIf("HeroSection")">
                     <i class="bi bi-house"></i>
-                    <span>Karşılama Alanı</span>
+                    <span>Ana Sayfa</span>
                 </a>
             </li>
             <li>
@@ -99,17 +101,18 @@
         </ul>
 
         <div class="menu-section-label mt-4">Sistem & Bağlantı</div>
-        <ul class="sidebar-nav">
+                <ul class="sidebar-nav">
             <li>
-                <a asp-area="" asp-controller="Default" asp-action="Index" target="_blank" class="sidebar-link">
+                <a asp-area="" asp-controller="Default" asp-action="Index" target="_blank" rel="noopener" class="sidebar-link">
                     <i class="bi bi-box-arrow-up-right"></i>
                     <span>Siteyi Önizle</span>
                 </a>
             </li>
             <li>
-                <a href="#" class="sidebar-link">
-                    <i class="bi bi-file-earmark-code"></i>
-                    <span>ASP.NET API</span>
+                @* Projenin herkese açık GitHub deposu: kodu inceleyen biri tek tıkla kaynağa ulaşsın *@
+                <a href="https://github.com/oguzhazneci/MYAcademy_PortfolioProject" target="_blank" rel="noopener" class="sidebar-link">
+                    <i class="bi bi-github"></i>
+                    <span>Kaynak Kod (GitHub)</span>
                 </a>
             </li>
         </ul>
@@ -118,14 +121,18 @@
     <!-- Admin User / Logout Footer -->
     <div class="sidebar-footer">
         <div class="admin-user-card">
-            <div class="user-avatar-circle">AK</div>
+            <div class="user-avatar-circle">@initials</div>
             <div class="user-info">
-                <div class="user-name">Admin Kullanıcı</div>
-                <div class="user-role">İçerik Yöneticisi</div>
+                <div class="user-name">@fullName</div>
+                @* User: giriş yapan kişi (10.1a'da çereze yazdığımız claim'lerden okunur) *@
+                <div class="user-role">Yönetici · @User.Identity?.Name</div>
             </div>
-            <button class="btn-logout" title="Çıkış Yap" id="btnLogout">
-                <i class="bi bi-box-arrow-right"></i>
-            </button>
+            @* Çıkış durum değiştiren bir işlem → POST formu (form tag helper anti-forgery token'ı kendisi ekler) *@
+            <form asp-area="Admin" asp-controller="Auth" asp-action="Logout" method="post" class="m-0">
+                <button type="submit" class="btn-logout" title="Çıkış Yap" aria-label="Çıkış Yap">
+                    <i class="bi bi-box-arrow-right"></i>
+                </button>
+            </form>
         </div>
     </div>
 </aside>

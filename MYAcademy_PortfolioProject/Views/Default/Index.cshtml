@@ -58,6 +58,15 @@
                                     <span>@TempData["ContactSuccess"]</span>
                                 </div>
                             }
+                            
+                            @if (TempData["ContactError"] != null)
+                            {
+                                @* Hız sınırı aşıldığında Program.cs'teki OnRejected bu mesajı yazar *@
+                                <div class="alert alert-warning d-flex align-items-center gap-2" role="alert">
+                                    <i class="bi bi-hourglass-split"></i>
+                                    <span>@TempData["ContactError"]</span>
+                                </div>
+                            }
 
                             @* asp-controller/asp-action: form, Default controller'ındaki SendMessage (POST) action'ına gider.
    Form tag helper, CSRF koruması için gizli bir doğrulama anahtarını da otomatik ekler. *@
@@ -82,6 +91,12 @@
                                         <label asp-for="MessageDetail" class="form-label small fw-semibold">Mesajınız *</label>
                                         <textarea asp-for="MessageDetail" class="form-control form-control-custom" rows="5" placeholder="Projeniz veya sorunuz hakkında detayları paylaşın..."></textarea>
                                         <span asp-validation-for="MessageDetail" class="text-danger small"></span>
+                                    </div>
+                                    @* Honeypot: insanlar görmez (ekran dışında), klavyeyle de ulaşamaz (tabindex="-1"), ekran okuyucular atlar (aria-hidden).
+                                       display:none KULLANMIYORUZ: bazı botlar gizlenmiş alanları tanıyıp boş bırakır. *@
+                                    <div class="hp-field" aria-hidden="true">
+                                        <label asp-for="Website">Web siteniz (bu alanı boş bırakın)</label>
+                                        <input asp-for="Website" tabindex="-1" autocomplete="off" />
                                     </div>
                                     <div class="col-12 pt-2">
                                         <button type="submit" class="btn-sage w-100 justify-content-center py-3 fs-6">

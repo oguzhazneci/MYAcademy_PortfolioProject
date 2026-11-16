@@ -1,5 +1,7 @@
 ﻿@{
     bool hasUnread = ViewBag.HasUnread;
+    string fullName = ViewBag.FullName;
+    string initials = ViewBag.Initials;
 }
 
 <header class="admin-navbar">
@@ -43,11 +45,39 @@
             <i class="bi bi-chat-left-text"></i>
         </a>
 
-        <!-- Admin Profile Pill -->
-        <div class="nav-profile-pill">
-            <div class="nav-avatar-mini">AK</div>
-            <span class="d-none d-sm-inline font-weight-600" style="font-size:0.825rem; font-weight:600;">Admin</span>
-            <i class="bi bi-chevron-down text-muted" style="font-size: 0.7rem;"></i>
+        <!-- Admin Profile Pill: Bootstrap açılır menüsü -->
+        <div class="dropdown">
+            <button type="button" class="nav-profile-pill" data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="nav-avatar-mini">@initials</span>
+                <span class="d-none d-sm-inline" style="font-size:0.825rem; font-weight:600;">@fullName</span>
+                <i class="bi bi-chevron-down text-muted" style="font-size: 0.7rem;"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end profile-menu">
+                <li>
+                    <span class="dropdown-item-text small text-muted">
+                        <i class="bi bi-person-check me-1"></i> Giriş: <strong>@User.Identity?.Name</strong>
+                    </span>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <a class="dropdown-item" asp-area="" asp-controller="Default" asp-action="Index" target="_blank" rel="noopener">
+                        <i class="bi bi-box-arrow-up-right me-2"></i>Siteyi Görüntüle
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" asp-area="Admin" asp-controller="About" asp-action="UpdateAbout">
+                        <i class="bi bi-person me-2"></i>Profil Bilgilerim
+                    </a>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <form asp-area="Admin" asp-controller="Auth" asp-action="Logout" method="post" class="m-0">
+                        <button type="submit" class="dropdown-item text-danger">
+                            <i class="bi bi-box-arrow-right me-2"></i>Çıkış Yap
+                        </button>
+                    </form>
+                </li>
+            </ul>
         </div>
     </div>
 </header>

@@ -1,0 +1,397 @@
+{
+  "HeroSections": [
+    {
+      "HeroSectionId": 1,
+      "Greeting": "Merhaba Ben Oğuz",
+      "Title": "Fikirleri çalışan ürünlere dönüştürüyorum.",
+      "Description": "Unity ve C# ile AR\/VR uygulamaları, mobil oyunlar ve eğitim simülasyonları geliştirerek başladığım yolculuğumu bugün ASP.NET Core ve Entity Framework Core ile veri odaklı web uygulamalarına taşıyorum.",
+      "MainImageUrl": "\/uploads\/profile\/021d793a-b30d-410f-aa96-bb920dd9666c.png"
+    }
+  ],
+  "HeroTitles": [
+    {
+      "HeroTitleId": 1,
+      "Title": "Yazılım Mühendisi",
+      "Order": 1,
+      "IsActive": false
+    },
+    {
+      "HeroTitleId": 2,
+      "Title": ".NET Geliştiricisi",
+      "Order": 2,
+      "IsActive": true
+    },
+    {
+      "HeroTitleId": 3,
+      "Title": "Unity & C# Geliştiricisi",
+      "Order": 3,
+      "IsActive": true
+    },
+    {
+      "HeroTitleId": 5,
+      "Title": "Unreal Geliştiricisi",
+      "Order": 4,
+      "IsActive": false
+    },
+    {
+      "HeroTitleId": 6,
+      "Title": "AR \/ VR Geliştiricisi",
+      "Order": 5,
+      "IsActive": true
+    },
+    {
+      "HeroTitleId": 7,
+      "Title": "Mobil Oyun Geliştiricisi",
+      "Order": 6,
+      "IsActive": true
+    }
+  ],
+  "Abouts": [
+    {
+      "AboutId": 1,
+      "FullName": "Oğuz Hazneci",
+      "Title": "Yazılım Mühendisi",
+      "Location": "Ankara",
+      "Heading": "Oyun Motorlarından Web'e, Uçtan Uca Yazılım.",
+      "Description": "Merhaba, ben Oğuz Hazneci. Çankaya Üniversitesi Bilgisayar Mühendisliği bölümünden mezun oldum ve 3,5 yılı aşkın süredir yazılım geliştiriyorum. Kariyerimin büyük bölümünde Unity ve C# ile artırılmış ve sanal gerçeklik (AR\/VR) uygulamaları, mobil oyunlar ve eğitim simülasyonları geliştirdim; projelerin yazılım mimarisinden App Store ve Google Play yayın süreçlerine kadar ürün geliştirme döngüsünün tamamında aktif rol aldım. Sunucu tarafında ise yüksek veri trafiğini yöneten gerçek zamanlı veri aktarımı çözümleri üzerinde çalıştım.\r\n\r\nSon dönemde odağımı web teknolojilerine genişleterek ASP.NET Core MVC, Entity Framework Core ve MS SQL Server ile veri odaklı web uygulamaları geliştiriyorum; bu portfolyo sitesi ve yönetim paneli de bu çalışmaların bir parçası. Grafik tasarım ve eğitim teknolojileri ekipleriyle çapraz fonksiyonlu çalışma deneyimim sayesinde, yazdığım kodun kullanıcıya ulaşan ürünün bir parçası olduğunu unutmadan çalışıyorum.",
+      "ImageUrl": "\/images\/oguz-hazneci.png",
+      "CvUrl": null,
+      "StatValue1": "3,5+",
+      "StatLabel1": "Yıl Deneyim",
+      "StatValue2": "10.000+",
+      "StatLabel2": "Google Play İndirmesi",
+      "StatValue3": "B2",
+      "StatLabel3": "İngilizce"
+    }
+  ],
+  "Skills": [
+    {
+      "SkillId": 1,
+      "Title": "Backend Geliştirme",
+      "Description": "Katmanlı ve sürdürülebilir sunucu taraflı uygulamalar; MVC mimarisi ve REST servisleri.",
+      "IconUrl": "bi-server"
+    },
+    {
+      "SkillId": 2,
+      "Title": "Veritabanı",
+      "Description": "İlişkisel veri modelleme, sorgu yazımı ve performans odaklı veri erişimi.",
+      "IconUrl": "bi-database"
+    },
+    {
+      "SkillId": 3,
+      "Title": "Frontend",
+      "Description": "Duyarlı (responsive) ve kullanıcı dostu arayüzler.",
+      "IconUrl": "bi-window"
+    },
+    {
+      "SkillId": 4,
+      "Title": "Programlama Dilleri",
+      "Description": "Nesne yönelimli programlama ve farklı paradigmalarda problem çözme.",
+      "IconUrl": "bi-code-slash"
+    },
+    {
+      "SkillId": 5,
+      "Title": "Oyun & XR Geliştirme",
+      "Description": "Unity ve Unreal Engine ile AR\/VR uygulamaları, mobil oyunlar ve eğitim simülasyonları.",
+      "IconUrl": "bi-controller"
+    },
+    {
+      "SkillId": 6,
+      "Title": "Mobil Yayın Süreçleri",
+      "Description": "Uygulamaların App Store ve Google Play'de yayına hazırlanması ve yayımlanması.",
+      "IconUrl": "bi-phone"
+    }
+  ],
+  "SkillItems": [
+    {
+      "SkillItemId": 1,
+      "SkillItemTitle": "ASP.NET Core MVC",
+      "SkillId": 1,
+      "Level": 75
+    },
+    {
+      "SkillItemId": 2,
+      "SkillItemTitle": "Entity Framework Core",
+      "SkillId": 1,
+      "Level": 75
+    },
+    {
+      "SkillItemId": 3,
+      "SkillItemTitle": "LINQ",
+      "SkillId": 1,
+      "Level": 75
+    },
+    {
+      "SkillItemId": 4,
+      "SkillItemTitle": "FastAPI",
+      "SkillId": 1,
+      "Level": 60
+    },
+    {
+      "SkillItemId": 5,
+      "SkillItemTitle": "SQL",
+      "SkillId": 2,
+      "Level": 80
+    },
+    {
+      "SkillItemId": 6,
+      "SkillItemTitle": "MS SQL Server",
+      "SkillId": 2,
+      "Level": 75
+    },
+    {
+      "SkillItemId": 7,
+      "SkillItemTitle": "PostgreSQL",
+      "SkillId": 2,
+      "Level": 65
+    },
+    {
+      "SkillItemId": 8,
+      "SkillItemTitle": "Redis",
+      "SkillId": 2,
+      "Level": 55
+    },
+    {
+      "SkillItemId": 9,
+      "SkillItemTitle": "HTML5 & CSS3",
+      "SkillId": 3,
+      "Level": 75
+    },
+    {
+      "SkillItemId": 10,
+      "SkillItemTitle": "Bootstrap",
+      "SkillId": 3,
+      "Level": 75
+    },
+    {
+      "SkillItemId": 11,
+      "SkillItemTitle": "JavaScript",
+      "SkillId": 3,
+      "Level": 65
+    },
+    {
+      "SkillItemId": 12,
+      "SkillItemTitle": "React",
+      "SkillId": 3,
+      "Level": 55
+    },
+    {
+      "SkillItemId": 13,
+      "SkillItemTitle": "C#",
+      "SkillId": 4,
+      "Level": 90
+    },
+    {
+      "SkillItemId": 14,
+      "SkillItemTitle": "C++",
+      "SkillId": 4,
+      "Level": 70
+    },
+    {
+      "SkillItemId": 15,
+      "SkillItemTitle": "Python",
+      "SkillId": 4,
+      "Level": 70
+    },
+    {
+      "SkillItemId": 16,
+      "SkillItemTitle": "C",
+      "SkillId": 4,
+      "Level": 65
+    },
+    {
+      "SkillItemId": 17,
+      "SkillItemTitle": "Unity",
+      "SkillId": 5,
+      "Level": 90
+    },
+    {
+      "SkillItemId": 18,
+      "SkillItemTitle": "AR \/ VR",
+      "SkillId": 5,
+      "Level": 85
+    },
+    {
+      "SkillItemId": 19,
+      "SkillItemTitle": "Unreal Engine",
+      "SkillId": 5,
+      "Level": 65
+    },
+    {
+      "SkillItemId": 20,
+      "SkillItemTitle": "Blender",
+      "SkillId": 5,
+      "Level": 60
+    },
+    {
+      "SkillItemId": 21,
+      "SkillItemTitle": "App Store Connect",
+      "SkillId": 6,
+      "Level": 80
+    },
+    {
+      "SkillItemId": 22,
+      "SkillItemTitle": "Google Play Console",
+      "SkillId": 6,
+      "Level": 80
+    }
+  ],
+  "Experiences": [
+    {
+      "ExperienceId": 3,
+      "Title": "Yazılım Mühendisi",
+      "CompanyName": "ATF Stüdyoları",
+      "Description": "AR tabanlı projelerin yazılım mimarisini performans ve ölçeklenebilirlik odaklı yeniden yapılandırdım; App Store ve Google Play yayın, sertifikasyon ve sürüm güncelleme süreçlerini yönettim. Pırıl Kampüs ekosistemindeki mini oyun modüllerini uçtan uca geliştirdim, eğitim sektörüne yönelik bir VR simülasyonunun donanım entegrasyonunu ve optimizasyonunu gerçekleştirdim. Ayrıca yüksek veri trafiğini yöneten, backend destekli gerçek zamanlı veri aktarımı projesinin geliştirme süreçlerini yürüttüm.",
+      "CategoryName": "Tam Zamanlı",
+      "IsActive": true,
+      "EndDate": "2026-02-01T00:00:00",
+      "StartDate": "2022-09-01T00:00:00"
+    },
+    {
+      "ExperienceId": 4,
+      "Title": "Stajyer Mühendis",
+      "CompanyName": "SIMOVATE",
+      "Description": "Üretim aşamasındaki simülasyon projelerinde performans optimizasyonları gerçekleştirdim; Unity içerisinde C# kullanarak UDP ve TCP protokollerinin entegrasyonunu sağladım.",
+      "CategoryName": "Staj",
+      "IsActive": true,
+      "EndDate": "2022-09-01T00:00:00",
+      "StartDate": "2022-08-01T00:00:00"
+    },
+    {
+      "ExperienceId": 5,
+      "Title": "Stajyer Oyun Geliştirici",
+      "CompanyName": "ATF Stüdyoları",
+      "Description": "Unity'nin temellerini öğrenerek başladığım stajda birkaç mini oyun geliştirdim; staj sürecini FPS türünde bir simülasyon oyunu prototipiyle tamamladım.",
+      "CategoryName": "Staj",
+      "IsActive": true,
+      "EndDate": "2021-09-01T00:00:00",
+      "StartDate": "2021-06-01T00:00:00"
+    }
+  ],
+  "Educations": [
+    {
+      "EducationId": 3,
+      "DegreeType": "Lisans",
+      "Department": "Bilgisayar Mühendisliği",
+      "SchoolName": "Çankaya Üniversitesi",
+      "Description": "Mühendislik eğitimim süresince ATF Stüdyoları ve SIMOVATE'te yaptığım stajlarla Unity, C# ve simülasyon projelerinde sektör deneyimi kazandım.",
+      "StartYear": 2017,
+      "EndYear": 2022,
+      "IsActive": true
+    }
+  ],
+  "Categories": [
+    {
+      "CategoryId": 1,
+      "CategoryName": "Web & Backend"
+    },
+    {
+      "CategoryId": 2,
+      "CategoryName": "AR \/ VR"
+    },
+    {
+      "CategoryId": 3,
+      "CategoryName": "Mobil Uygulamalar"
+    },
+    {
+      "CategoryId": 4,
+      "CategoryName": "Oyun & Simülasyon"
+    }
+  ],
+  "Projects": [
+    {
+      "ProjectId": 6,
+      "ProjectTitle": "VR Eğitim Simülasyonu",
+      "Description": "Eğitim sektörüne yönelik kapsamlı bir sanal gerçeklik simülasyonu. Sistemin VR donanımları üzerinde stabil çalışması için donanım entegrasyonu ve performans optimizasyonu çalışmalarını yürüttüm.",
+      "CategoryId": 2,
+      "CreatedDate": "2026-11-14T17:35:37.4100000",
+      "ImageUrl": "\/uploads\/projects\/2ad54ae8-0080-4774-834b-f46d84994839.png",
+      "IsActive": true,
+      "ProjectUrl": null,
+      "Technologies": "Unity, C#, VR"
+    },
+    {
+      "ProjectId": 7,
+      "ProjectTitle": "AR Uygulama Mimarisinin Yeniden Yapılandırılması",
+      "Description": "Artırılmış gerçeklik tabanlı projelerin yazılım mimarisini performans ve ölçeklenebilirlik esaslarına göre yeniden yapılandırdım.",
+      "CategoryId": 2,
+      "CreatedDate": "2026-11-14T17:34:37.4100000",
+      "ImageUrl": "\/uploads\/projects\/b742f98c-e97e-44c8-a7db-28a732e77da7.jpeg",
+      "IsActive": true,
+      "ProjectUrl": null,
+      "Technologies": "Unity, C#, AR"
+    },
+    {
+      "ProjectId": 8,
+      "ProjectTitle": "Kişisel Portfolyo ve Yönetim Paneli",
+      "Description": "Bu sitenin kendisi. Tüm içeriği yönetim panelinden düzenlenebilen, ASP.NET Core MVC ile geliştirilmiş kişisel portfolyo. Entity Framework Core (Code First) ile ilişkili tablolar, Data Annotations ile sunucu tarafı doğrulama, IFormFile ile güvenli görsel yükleme ve ViewComponent tabanlı modüler bir arayüz içerir.",
+      "CategoryId": 1,
+      "CreatedDate": "2026-11-14T17:42:16.3533333",
+      "ImageUrl": "\/uploads\/projects\/2496eb97-87d2-4828-bf34-c80864d0efa9.jpeg",
+      "IsActive": true,
+      "ProjectUrl": "https:\/\/github.com\/oguzhazneci\/MYAcademy_PortfolioProject",
+      "Technologies": "ASP.NET Core MVC, Entity Framework Core, MS SQL Server, LINQ, Bootstrap, JavaScript"
+    },
+    {
+      "ProjectId": 9,
+      "ProjectTitle": "Gerçek Zamanlı Veri İletim Sistemi",
+      "Description": "Sunucu mimarisi üzerinde çalışan ve yüksek veri trafiğini yöneten, backend destekli gerçek zamanlı veri iletim sistemi.",
+      "CategoryId": 1,
+      "CreatedDate": "2026-11-14T17:40:16.3533333",
+      "ImageUrl": "\/uploads\/projects\/5b1d6f3e-022a-4ed2-8f09-c20fb203fecb.png",
+      "IsActive": true,
+      "ProjectUrl": null,
+      "Technologies": "Python, FastAPI, PostgreSQL, Redis"
+    },
+    {
+      "ProjectId": 10,
+      "ProjectTitle": "Pırıl Kampüs – Mobil Eğitim Uygulaması",
+      "Description": "Google Play'de 10.000'den fazla indirmeye ulaşan mobil eğitim uygulaması. Uygulamadaki tüm mini oyun modüllerinin algoritma tasarımını, arayüz entegrasyonunu ve skor\/geri bildirim sistemlerini geliştirdim; modüllerin ana uygulamaya entegrasyonunu, sürüm yayınlarını ve mağaza güncellemelerini üstlendim.",
+      "CategoryId": 3,
+      "CreatedDate": "2026-11-14T17:41:16.3533333",
+      "ImageUrl": "\/uploads\/projects\/bbe7c619-5100-4e50-9ce6-9479bf64a160.webp",
+      "IsActive": true,
+      "ProjectUrl": "https:\/\/play.google.com\/store\/apps\/details?id=com.pirilkampus.app",
+      "Technologies": "Unity, C#, Android, iOS"
+    },
+    {
+      "ProjectId": 11,
+      "ProjectTitle": "FPS Simülasyon Oyunu Prototipi",
+      "Description": "Stajımda Unity'nin temellerini ve birkaç mini oyunla oyun geliştirme pratiğini edindikten sonra geliştirdiğim, birinci şahıs nişancı (FPS) türünde bir simülasyon oyunu prototipi.",
+      "CategoryId": 4,
+      "CreatedDate": "2026-11-14T17:37:16.3533333",
+      "ImageUrl": "\/uploads\/projects\/898a35c7-8b85-4ae3-90c5-f4c487ee99bd.jpg",
+      "IsActive": true,
+      "ProjectUrl": null,
+      "Technologies": "Unity, C#"
+    }
+  ],
+  "Contacts": [
+    {
+      "ContactId": 1,
+      "Title": "Harika Bir Fikrin mi Var? Birlikte Hayata Geçirelim.",
+      "Description": "Yeni iş fırsatları, proje iş birlikleri veya yalnızca teknoloji üzerine sohbet etmek için benimle iletişime geçebilirsin.",
+      "Email": "oguzhazneci00@gmail.com",
+      "Location": "Ankara, Türkiye",
+      "PhoneNumber": null
+    }
+  ],
+  "SocialMedias": [
+    {
+      "SocialMediaId": 1,
+      "Name": "GitHub",
+      "Url": "https:\/\/github.com\/oguzhazneci",
+      "IconClass": "bi-github",
+      "Order": 2,
+      "IsActive": true
+    },
+    {
+      "SocialMediaId": 2,
+      "Name": "LinkedIn",
+      "Url": "https:\/\/www.linkedin.com\/in\/o%C4%9Fuz-hazneci-a047b11b8\/",
+      "IconClass": "bi-linkedin",
+      "Order": 1,
+      "IsActive": true
+    }
+  ]
+}
